@@ -1,12 +1,11 @@
 // GAME SETTINGS
 const WIDTH = 50;
 const HEIGHT = 50;
-// [4, 3, 2, 1, 1, 1]
 const SPAWN_CHANCES = [90, 10, 10, 1, 1, 1];
 const KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem];
 
 // OUTPUT SETTINGS
-const CELL_SIDE_PX = 20; //7
+const CELL_SIDE_PX = 16;
 const BACKGROUND_COLOR = '#acacacff';
 const COLORS = {
     "Air": "#acacac",
