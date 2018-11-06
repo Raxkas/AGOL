@@ -161,6 +161,13 @@ class Xotaker extends Attacker {
             this.multiply(cell);
         }
         
+        else if (this.isNear(Grass) && this.can_multiply() && this.energy == this._energy_limit) {
+            let cell = random(this.findNear(Grass));
+            let old_pos = this.pos;
+            this.eat(cell);
+            this.multiply(old_pos);
+        }
+
         else if (this.isNear(Grass)) {
             let cell = random(this.findNear(Grass))
             this.eat(cell);
