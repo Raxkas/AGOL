@@ -31,21 +31,6 @@ class Creeper extends Attacker {
         }
     }
 
-    _getArea(radius) {
-        let [x, y] = this.pos;
-        let rangePositive = [];
-        for (let i = 1; i <= radius; i++) {
-            rangePositive.push(i);
-        }
-        let rangeNegative = rangePositive.map(v => -v).reverse();
-        let range = [].concat(rangeNegative, [0], rangePositive);
-        let xRange = range.map(v => x + v);
-        let yRange = range.map(v => y + v);
-        let rows = yRange.map(y => xRange.map(x => [x, y]));
-        let area = [].concat(...rows).filter(p => this._gameLogic.isPosCorrect(p));
-        return area;
-    }
-
     bang() {
         if (this.energy < this._bangCost) {
             throw "Not enough energy";

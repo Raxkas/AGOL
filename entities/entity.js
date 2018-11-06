@@ -4,18 +4,23 @@ class Entity {
     }
 
     get directions () {
+        let area = this._getArea(1);
+        return area.filter(p => this._gameLogic.getEntityByPos(p) !== this);
+    }
+
+     _getArea(radius) {
         let [x, y] = this.pos;
-        let directions = [
-            [x - 1, y - 1],
-            [x    , y - 1],
-            [x + 1, y - 1],
-            [x - 1, y    ],
-            [x + 1, y    ],
-            [x - 1, y + 1],
-            [x    , y + 1],
-            [x + 1, y + 1]
-        ];
-        return directions.filter(p => this._gameLogic.isPosCorrect(p));
+        let rangePositive = [];
+        for (let i = 1; i <= radius; i++) {
+            rangePositive.push(i);
+        }
+        let rangeNegative = rangePositive.map(v => -v).reverse();
+        let range = [].concat(rangeNegative, [0], rangePositive);
+        let xRange = range.map(v => x + v);
+        let yRange = range.map(v => y + v);
+        let rows = yRange.map(y => xRange.map(x => [x, y]));
+        let area = [].concat(...rows).filter(p => this._gameLogic.isPosCorrect(p));
+        return area;
     }
 
     isNear() {
