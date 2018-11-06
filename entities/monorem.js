@@ -33,8 +33,10 @@ class Monorem extends Attacker {
     set energy(value) {
         _monoremsJointEnergy -= this.energy;
         _monoremsJointEnergy += value;
-        if (this.energy > this._energyLimit) {
-            _monoremsJointEnergy = this._energyLimit*this._gameLogic.count(this.kind);
+        if ("_gameLogic" in this) {
+            if (this.energy > this._energyLimit) {
+                _monoremsJointEnergy = this._energyLimit*this._gameLogic.count(this.kind);
+            }
         }
     }
 }
