@@ -56,6 +56,21 @@ class Mob extends Entity {
         return this.kind._multiplication_cost;
     }
 
+    get _energy_limit() {
+        return this.kind._energy_limit;
+    }
+
+    get energy() {
+        return this._energy;
+    }
+
+    set energy(value) {
+        this._energy = value;
+        if (this._energy > this._energy_limit) {
+            this._energy = this._energy_limit;
+        }
+    }
+
     constructor() {
         super();
         this.energy = this._default_energy;
@@ -97,9 +112,7 @@ class Grass extends Mob {
     }
 
     _next_tick() {
-        if (this.energy < 10) {
-            this.energy++;
-        }
+        this.energy++;
         if (this.isNear(Air) && this.can_multiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
@@ -109,7 +122,7 @@ class Grass extends Mob {
 
 Grass._default_energy = 1;
 Grass._multiplication_cost = 4;
-
+Grass._energy_limit = 10;
 
 
 class Attacker extends Mob {
@@ -162,6 +175,7 @@ class Xotaker extends Attacker {
 
 Xotaker._default_energy = 5;
 Xotaker._multiplication_cost = 20;
+Xotaker._energy_limit = 40;
 Xotaker._energy_from_prey = 2;
 
 
@@ -191,6 +205,7 @@ class Predator extends Attacker {
 
 Predator._default_energy = 100;
 Predator._multiplication_cost = 9;
+Predator._energy_limit = 145;
 Predator._energy_from_prey = 3;
 
 
@@ -230,6 +245,7 @@ class Creeper extends Attacker {
 
 Creeper._default_energy = 10;
 Creeper._multiplication_cost = +Infinity;
+Creeper._energy_limit = +Infinity;
 Creeper._energy_from_prey = 2;
 Creeper._bang_cost = 20;
 
@@ -269,9 +285,13 @@ class Monorem extends Attacker {
     set energy(value) {
         _monoremsJointEnergy -= this.energy;
         _monoremsJointEnergy += value;
+        if (this.energy > this._energy_limit) {
+            _monoremsJointEnergy = this._energy_limit*this._game_logic.count(this.kind);
+        }
     }
 }
 
 Monorem._default_energy = 5;
 Monorem._multiplication_cost = 9;
+Monorem._energy_limit = 20;
 Monorem._energy_from_prey = 3;
