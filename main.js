@@ -60,7 +60,7 @@ function _computeOpacity(entity) {
         return opacity;
     }
     const energy = entity.energy;
-    const energyLimit = entity._energy_limit;
+    const energyLimit = entity._energyLimit;
     let k = energy/energyLimit;
     opacity = minOpacity + k*(maxOpacity - minOpacity);
     opacity = Math.floor(opacity);
