@@ -3,6 +3,10 @@ class Creeper extends Attacker {
         super();
     }
 
+    get _bangCost() {
+        return this.kind._bangCost;
+    }
+
     _nextTick() {
         if (this.energy >= this._bangCost) {
             this.bang()
