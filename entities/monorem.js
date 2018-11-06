@@ -6,8 +6,8 @@ class Monorem extends Attacker {
         super();
     }
 
-    _next_tick() {
-        if (this.isNear(Air) && this.can_multiply()) {
+    _nextTick() {
+        if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
         }
@@ -24,22 +24,22 @@ class Monorem extends Attacker {
     }
 
     get energy() {
-        if ("_game_logic" in this) {
-            return _monoremsJointEnergy/this._game_logic.count(this.kind);
+        if ("_gameLogic" in this) {
+            return _monoremsJointEnergy/this._gameLogic.count(this.kind);
         }
-        return this._default_energy;
+        return this._defaultEnergy;
     }
 
     set energy(value) {
         _monoremsJointEnergy -= this.energy;
         _monoremsJointEnergy += value;
-        if (this.energy > this._energy_limit) {
-            _monoremsJointEnergy = this._energy_limit*this._game_logic.count(this.kind);
+        if (this.energy > this._energyLimit) {
+            _monoremsJointEnergy = this._energyLimit*this._gameLogic.count(this.kind);
         }
     }
 }
 
-Monorem._default_energy = 5;
-Monorem._multiplication_cost = 9;
-Monorem._energy_limit = 20;
-Monorem._energy_from_prey = 3;
+Monorem._defaultEnergy = 5;
+Monorem._multiplicationCost = 9;
+Monorem._energyLimit = 20;
+Monorem._energyFromPrey = 3;

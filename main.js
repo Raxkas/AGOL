@@ -35,36 +35,36 @@ function draw() {
         for (let x = 0; x < logic.width; x++) {
             let pos = [x, y];
             let entity = logic.getEntityByPos(pos);
-            let kind_name = entity.kind.name;
-            let opacity = _compute_opacity(entity);
-            let color = COLORS[kind_name] + opacity.toString(16);
-            _set_color(pos, color);
+            let kindName = entity.kind.name;
+            let opacity = _computeOpacity(entity);
+            let color = COLORS[kindName] + opacity.toString(16);
+            _setColor(pos, color);
         }
     }
-    logic.next_tick();
+    logic.nextTick();
 }
 
 
-function _set_color(pos, new_color) {
+function _setColor(pos, newColor) {
     let [x, y] = pos;
-    fill(new_color);
+    fill(newColor);
     rect(x*CELL_SIDE_PX, y*CELL_SIDE_PX, CELL_SIDE_PX, CELL_SIDE_PX);
 }
 
 
-function _compute_opacity(entity) {
+function _computeOpacity(entity) {
     let opacity = 255;
     if (!(entity instanceof Mob)) {
         return opacity;
     }
     const energy = entity.energy;
-    const def_energy = entity._default_energy;
-    const mult_cost = entity._multiplication_cost;
-    if (energy < def_energy+mult_cost) {
-        opacity = 64 + 32*energy/(def_energy+mult_cost);
+    const defEnergy = entity._defaultEnergy;
+    const multCost = entity._multiplicationCost;
+    if (energy < defEnergy+multCost) {
+        opacity = 64 + 32*energy/(defEnergy+multCost);
     }
     else {
-        opacity = 128 + 5*(energy-def_energy-mult_cost);
+        opacity = 128 + 5*(energy-defEnergy-multCost);
     }
     if (opacity >= 255) {
         opacity = 255;

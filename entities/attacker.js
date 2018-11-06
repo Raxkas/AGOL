@@ -1,23 +1,23 @@
 class Attacker extends Mob {
-    get _movement_cost() {
-        return this.kind._movement_cost;
+    get _movementCost() {
+        return this.kind._movementCost;
     }
 
-    get _energy_from_prey() {
-        return this.kind._energy_from_prey;
+    get _energyFromPrey() {
+        return this.kind._energyFromPrey;
     }
 
     move(pos) {
-        this._game_logic.swap(this, pos)
-        this.energy -= this._movement_cost;
+        this._gameLogic.swap(this, pos)
+        this.energy -= this._movementCost;
     }
 
     eat(pos) {
         this.kill(pos);
-        this._game_logic.replace(pos, Air);
-        this._game_logic.swap(this, pos);
-        this.energy += this._energy_from_prey;
+        this._gameLogic.replace(pos, Air);
+        this._gameLogic.swap(this, pos);
+        this.energy += this._energyFromPrey;
     }
 }
 
-Attacker._movement_cost = 1;
+Attacker._movementCost = 1;

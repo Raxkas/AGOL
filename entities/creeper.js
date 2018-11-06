@@ -3,17 +3,17 @@ class Creeper extends Attacker {
         super();
     }
 
-    _next_tick() {
-        if (this.energy >= this._bang_cost) {
+    _nextTick() {
+        if (this.energy >= this._bangCost) {
             this.bang()
         }
 
         else if (this.isNear(Xotaker, Predator)) {
-            let prey_kind = Xotaker;
+            let preyKind = Xotaker;
             if (!this.isNear(Xotaker)) {
-                prey_kind = Predator;
+                preyKind = Predator;
             }
-            let cell = random(this.findNear(prey_kind));
+            let cell = random(this.findNear(preyKind));
             this.eat(cell)
         }
 
@@ -24,7 +24,7 @@ class Creeper extends Attacker {
     }
 
     bang() {
-        if (this.energy < 20) {
+        if (this.energy < this._bangCost) {
             throw "not enough power";
         }
         let damaged = this.directions.concat(this.pos);
@@ -32,8 +32,8 @@ class Creeper extends Attacker {
     }
 }
 
-Creeper._default_energy = 10;
-Creeper._multiplication_cost = +Infinity;
-Creeper._energy_limit = +Infinity;
-Creeper._energy_from_prey = 2;
-Creeper._bang_cost = 20;
+Creeper._defaultEnergy = 10;
+Creeper._multiplicationCost = +Infinity;
+Creeper._energyLimit = +Infinity;
+Creeper._energyFromPrey = 2;
+Creeper._bangCost = 20;

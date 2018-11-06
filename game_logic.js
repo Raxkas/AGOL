@@ -1,19 +1,19 @@
-function _get_random_of(kinds, spawn_chances) {
-    const chances_sum = spawn_chances.reduce((a, b) => a+b);
-    const seed = random() * chances_sum;
-    let passed_chances_sum = 0;
-    for (var id in spawn_chances) {
-        passed_chances_sum += spawn_chances[id];
-        if (passed_chances_sum > seed) {
+function _getRandomOf(kinds, spawnChances) {
+    const chancesSum = spawnChances.reduce((a, b) => a+b);
+    const seed = random() * chancesSum;
+    let passedChancesSum = 0;
+    for (var id in spawnChances) {
+        passedChancesSum += spawnChances[id];
+        if (passedChancesSum > seed) {
             return kinds[id];
         }
     }
-    throw "Something went wrong. Arguments: " + [kinds, spawn_chances];
+    throw "Something went wrong. Arguments: " + [kinds, spawnChances];
 }
 
 
 class AGOLLogic {
-    constructor(width, height, kinds, spawn_chances) {
+    constructor(width, height, kinds, spawnChances) {
         this.width = width;
         this.height = height;
         this._KINDS = Array.from(kinds);
@@ -28,23 +28,23 @@ class AGOLLogic {
                 this._matrix[y].push(null);
             }
         }
-        this._generate_entities(spawn_chances);
+        this._generateEntities(spawnChances);
     }
     
-    _generate_entities(spawn_chances) {
+    _generateEntities(spawnChances) {
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
-                let kind = _get_random_of(this._KINDS, spawn_chances);
+                let kind = _getRandomOf(this._KINDS, spawnChances);
                 this.replace([x,y], kind);
             }
         }
     }
     
-    next_tick() {
+    nextTick() {
         let entities = [].concat(...this._ARRAYS);
         for (let entity of entities) {
             if (entity.alive) {
-                entity.next_tick();
+                entity.nextTick();
             }
         }
     }
@@ -64,30 +64,30 @@ class AGOLLogic {
     }
     
     replace(value, kind) {
-        let old_entity = this._getEntityBy(value);
+        let oldEntity = this._getEntityBy(value);
         
-        if (value === old_entity) {
-            var pos = old_entity.pos;
+        if (value === oldEntity) {
+            var pos = oldEntity.pos;
         }
         else {
             var pos = value;
         }
         let [x, y] = pos;
         
-        if (old_entity !== null) {
+        if (oldEntity !== null) {
             this._matrix[y][x] = null;
-            let old_entity_array = this.getArrayBy(old_entity);
-            let i = old_entity_array.indexOf(old_entity);
-            old_entity_array.splice(i, 1);
-            old_entity.alive = false;
+            let oldEntityArray = this.getArrayBy(oldEntity);
+            let i = oldEntityArray.indexOf(oldEntity);
+            oldEntityArray.splice(i, 1);
+            oldEntity.alive = false;
         }
         
-        let new_entity = new kind();
-        this.getArrayBy(new_entity).push(new_entity);
-        this._matrix[y][x] = new_entity;
-        new_entity.pos = pos;
-        new_entity._game_logic = this;
-        new_entity.alive = true;
+        let newEntity = new kind();
+        this.getArrayBy(newEntity).push(newEntity);
+        this._matrix[y][x] = newEntity;
+        newEntity.pos = pos;
+        newEntity._gameLogic = this;
+        newEntity.alive = true;
     }
     
     swap(value1, value2) {

@@ -15,7 +15,7 @@ class Entity {
             [x    , y + 1],
             [x + 1, y + 1]
         ];
-        return directions.filter(p => this._game_logic.isPosCorrect(p));
+        return directions.filter(p => this._gameLogic.isPosCorrect(p));
     }
 
     isNear() {
@@ -25,7 +25,7 @@ class Entity {
     findNear() {
         if (arguments.length == 1) {
             let kind = arguments[0];
-            return this.directions.filter(pos => this._game_logic.getEntityByPos(pos) instanceof kind);
+            return this.directions.filter(pos => this._gameLogic.getEntityByPos(pos) instanceof kind);
         }
         let kinds = Array.from(arguments);
         let found = kinds.map(kind => this.findNear.apply(this, [kind])).reduce((a, b) => a.concat(b));

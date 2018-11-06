@@ -3,17 +3,17 @@ class Xotaker extends Attacker {
         super();
     }
 
-    _next_tick() {
-        if (this.isNear(Air) && this.can_multiply()) {
+    _nextTick() {
+        if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
         }
 
-        else if (this.isNear(Grass) && this.can_multiply() && this.energy == this._energy_limit) {
+        else if (this.isNear(Grass) && this.canMultiply() && this.energy == this._energyLimit) {
             let cell = random(this.findNear(Grass));
-            let old_pos = this.pos;
+            let oldPos = this.pos;
             this.eat(cell);
-            this.multiply(old_pos);
+            this.multiply(oldPos);
         }
 
         else if (this.isNear(Grass)) {
@@ -28,7 +28,7 @@ class Xotaker extends Attacker {
     }
 }
 
-Xotaker._default_energy = 5;
-Xotaker._multiplication_cost = 20;
-Xotaker._energy_limit = 40;
-Xotaker._energy_from_prey = 2;
+Xotaker._defaultEnergy = 5;
+Xotaker._multiplicationCost = 20;
+Xotaker._energyLimit = 40;
+Xotaker._energyFromPrey = 2;

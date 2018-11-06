@@ -3,8 +3,8 @@ class Predator extends Attacker {
         super();
     }
 
-    _next_tick() {
-        if (this.isNear(Air) && this.can_multiply()) {
+    _nextTick() {
+        if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
         }
@@ -21,7 +21,7 @@ class Predator extends Attacker {
     }
 }
 
-Predator._default_energy = 100;
-Predator._multiplication_cost = 9;
-Predator._energy_limit = 145;
-Predator._energy_from_prey = 3;
+Predator._defaultEnergy = 100;
+Predator._multiplicationCost = 9;
+Predator._energyLimit = 145;
+Predator._energyFromPrey = 3;

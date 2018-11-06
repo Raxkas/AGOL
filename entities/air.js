@@ -3,7 +3,7 @@ class Air extends Entity {
         super();
     }
 
-    next_tick() {
+    nextTick() {
         null;
     }
 }

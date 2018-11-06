@@ -1,14 +1,14 @@
 class Mob extends Entity {
-    get _default_energy() {
-        return this.kind._default_energy;
+    get _defaultEnergy() {
+        return this.kind._defaultEnergy;
     }
 
-    get _multiplication_cost() {
-        return this.kind._multiplication_cost;
+    get _multiplicationCost() {
+        return this.kind._multiplicationCost;
     }
 
-    get _energy_limit() {
-        return this.kind._energy_limit;
+    get _energyLimit() {
+        return this.kind._energyLimit;
     }
 
     get energy() {
@@ -17,38 +17,38 @@ class Mob extends Entity {
 
     set energy(value) {
         this._energy = value;
-        if (this._energy > this._energy_limit) {
-            this._energy = this._energy_limit;
+        if (this._energy > this._energyLimit) {
+            this._energy = this._energyLimit;
         }
     }
 
     constructor() {
         super();
-        this.energy = this._default_energy;
+        this.energy = this._defaultEnergy;
     }
 
     spawn(kind, pos) {
-        if (!(this._game_logic.getEntityByPos(pos) instanceof Air)) {
+        if (!(this._gameLogic.getEntityByPos(pos) instanceof Air)) {
             throw "Is not empty cell: " + pos;
         }
-        this._game_logic.replace(pos, kind);
+        this._gameLogic.replace(pos, kind);
     }
 
     kill(value) {
-        this._game_logic.replace(value, Air);
+        this._gameLogic.replace(value, Air);
     }
 
-    can_multiply() {
-        return this.energy >= this._default_energy + this._multiplication_cost;
+    canMultiply() {
+        return this.energy >= this._defaultEnergy + this._multiplicationCost;
     }
 
     multiply(pos) {
         this.spawn(this.kind, pos);
-        this.energy -= this._multiplication_cost;
+        this.energy -= this._multiplicationCost;
     }
 
-    next_tick() {
-        this._next_tick();
+    nextTick() {
+        this._nextTick();
         if (this.energy <= 0) {
             this.kill(this);
         }

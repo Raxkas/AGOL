@@ -3,15 +3,15 @@ class Grass extends Mob {
         super();
     }
 
-    _next_tick() {
+    _nextTick() {
         this.energy++;
-        if (this.isNear(Air) && this.can_multiply()) {
+        if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
         }
     }
 }
 
-Grass._default_energy = 1;
-Grass._multiplication_cost = 4;
-Grass._energy_limit = 10;
+Grass._defaultEnergy = 1;
+Grass._multiplicationCost = 4;
+Grass._energyLimit = 10;
