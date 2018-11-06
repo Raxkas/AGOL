@@ -29,10 +29,10 @@ class Creeper extends Attacker {
 
     bang() {
         if (this.energy < this._bangCost) {
-            throw "not enough power";
+            throw "Not enough energy";
         }
-        let damaged = this.directions.concat(this.pos);
-        damaged.map(this.kill);
+        let damaged = this.directions.concat([this.pos]);
+        damaged.map(p => this.kill(p));
     }
 }
 
