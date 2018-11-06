@@ -53,22 +53,19 @@ function _setColor(pos, newColor) {
 
 
 function _computeOpacity(entity) {
-    let opacity = 255;
+    const minOpacity = 64;
+    const maxOpacity = 255
+    let opacity = maxOpacity;
     if (!(entity instanceof Mob)) {
         return opacity;
     }
     const energy = entity.energy;
-    const defEnergy = entity._defaultEnergy;
-    const multCost = entity._multiplicationCost;
-    if (energy < defEnergy+multCost) {
-        opacity = 64 + 32*energy/(defEnergy+multCost);
-    }
-    else {
-        opacity = 128 + 5*(energy-defEnergy-multCost);
-    }
+    const energyLimit = entity._energy_limit;
+    let k = energy/energyLimit;
+    opacity = minOpacity + k*(maxOpacity - minOpacity);
+    opacity = Math.floor(opacity);
     if (opacity >= 255) {
         opacity = 255;
     }
-    opacity = Math.floor(opacity);
     return opacity;
 }
