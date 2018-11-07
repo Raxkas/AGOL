@@ -3,17 +3,23 @@ class Creeper extends Attacker {
         super();
     }
 
-    get _bangCost() {
-        return this.kind._bangCost;
-    }
-
     get _bangRadius() {
         return this.kind._bangRadius;
     }
 
+    get _childrenPerMultiplication() {
+        return this.kind._childrenPerMultiplication;
+    }
+
     _nextTick() {
-        if (this.energy >= this._bangCost) {
-            this.bang()
+        if (this.canMultiply()) {
+            this.bang();
+            let availableCells = this._getArea(this._bangRadius);
+            for (let i = 0; i < this._childrenPerMultiplication; i++) {
+                let cell = random(availableCells);
+                this.spawn(Creeper, cell);
+                availableCells = availableCells.filter(x => x !== cell);
+            }
         }
 
         else if (this.isNear(Xotaker, Predator)) {
@@ -41,8 +47,8 @@ class Creeper extends Attacker {
 }
 
 Creeper._defaultEnergy = 10;
-Creeper._multiplicationCost = +Infinity;
-Creeper._energyLimit = +Infinity;
+Creeper._multiplicationCost = 20;
+Creeper._energyLimit = 40;
 Creeper._energyFromPrey = 2;
-Creeper._bangCost = 20;
 Creeper._bangRadius = 5;
+Creeper._childrenPerMultiplication = 8;
