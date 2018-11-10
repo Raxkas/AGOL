@@ -7,14 +7,17 @@ class Monorem extends Attacker {
     }
 
     _nextTick() {
+        this.energy += 0.2;
+
         if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
             this.multiply(cell);
         }
 
-        else if (this.isNear(Xotaker, Predator, Creeper)) {
-            let cell = random(this.findNear(Xotaker, Predator, Creeper));
-            this.eat(cell);
+        else if (this.isNear(Grass) && this.canMultiply() && this.energy >= this._defaultEnergy + this._multiplicationCost + 1) {
+            let cell = random(this.findNear(Grass));
+            this.kill(cell);
+            this.multiply(cell);
         }
 
         else if (this.isNear(Air, Grass)) {
@@ -41,7 +44,8 @@ class Monorem extends Attacker {
     }
 }
 
-Monorem._defaultEnergy = 5;
-Monorem._multiplicationCost = 9;
+Monorem._defaultEnergy = 10;
+Monorem._multiplicationCost = 5;
 Monorem._energyLimit = 20;
-Monorem._energyFromPrey = 3;
+Monorem._movementCost = 0;
+Monorem._energyFromPrey = undefined;

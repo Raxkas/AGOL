@@ -1,7 +1,7 @@
 // GAME SETTINGS
-const WIDTH = 50;
-const HEIGHT = 50;
-const SPAWN_CHANCES = [90, 10, 10, 1, 1, 1];
+const WIDTH = 64;
+const HEIGHT = 64;
+const SPAWN_CHANCES = [128, 1, 1, 1, 1, 1];
 const KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem];
 
 // OUTPUT SETTINGS

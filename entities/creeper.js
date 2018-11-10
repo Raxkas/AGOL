@@ -22,12 +22,8 @@ class Creeper extends Attacker {
             }
         }
 
-        else if (this.isNear(Xotaker, Predator)) {
-            let preyKind = Xotaker;
-            if (!this.isNear(Xotaker)) {
-                preyKind = Predator;
-            }
-            let cell = random(this.findNear(preyKind));
+        else if (this.isNear(Monorem)) {
+            let cell = random(this.findNear(Monorem));
             this.eat(cell)
         }
 
@@ -47,8 +43,9 @@ class Creeper extends Attacker {
 }
 
 Creeper._defaultEnergy = 10;
-Creeper._multiplicationCost = 20;
-Creeper._energyLimit = 40;
-Creeper._energyFromPrey = 2;
+Creeper._multiplicationCost = 3;
+Creeper._energyLimit = 14;
+Creeper._movementCost = 0.1;
+Creeper._energyFromPrey = 1;
 Creeper._bangRadius = 5;
 Creeper._childrenPerMultiplication = 8;

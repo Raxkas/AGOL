@@ -9,8 +9,8 @@ class Predator extends Attacker {
             this.multiply(cell);
         }
 
-        else if (this.isNear(Xotaker, Monorem)) {
-            let cell = random(this.findNear(Xotaker, Monorem));
+        else if (this.isNear(Xotaker)) {
+            let cell = random(this.findNear(Xotaker));
             this.eat(cell);
         }
 
@@ -21,7 +21,8 @@ class Predator extends Attacker {
     }
 }
 
-Predator._defaultEnergy = 100;
-Predator._multiplicationCost = 9;
-Predator._energyLimit = 145;
-Predator._energyFromPrey = 3;
+Predator._defaultEnergy = 15;
+Predator._multiplicationCost = 2;
+Predator._energyLimit = 20;
+Predator._movementCost = 0.1;
+Predator._energyFromPrey = 1;

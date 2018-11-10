@@ -28,7 +28,8 @@ class Xotaker extends Attacker {
     }
 }
 
-Xotaker._defaultEnergy = 5;
-Xotaker._multiplicationCost = 20;
-Xotaker._energyLimit = 40;
-Xotaker._energyFromPrey = 2;
+Xotaker._defaultEnergy = 2;
+Xotaker._multiplicationCost = 2;
+Xotaker._energyLimit = 4;
+Xotaker._movementCost = 0.1;
+Xotaker._energyFromPrey = 0.2;

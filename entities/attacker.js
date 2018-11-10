@@ -19,5 +19,3 @@ class Attacker extends Mob {
         this.energy += this._energyFromPrey;
     }
 }
-
-Attacker._movementCost = 1;
