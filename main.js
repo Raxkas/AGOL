@@ -6,7 +6,7 @@ const KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem];
 
 // OUTPUT SETTINGS
 const CELL_SIDE_PX = 15;
-const BACKGROUND_COLOR = '#acacacff';
+const BACKGROUND_COLOR = '#000000';
 const COLORS = {
     "Air": "#ffffff00",
     "Grass": "#007f00",
