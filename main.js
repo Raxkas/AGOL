@@ -12,7 +12,7 @@ const COLORS = {
     "Grass": "#007f00",
     "Xotaker": "#ffff00",
     "Predator": "#ff0000",
-    "Creeper": "#003399",
+    "Creeper": "#0044bb",
     "Monorem": "#ffffff"
 }
 const FPS = 5;
