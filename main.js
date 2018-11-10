@@ -8,7 +8,7 @@ const KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem];
 const CELL_SIDE_PX = 15;
 const BACKGROUND_COLOR = '#acacacff';
 const COLORS = {
-    "Air": "#acacac",
+    "Air": "#ffffff00",
     "Grass": "#007f00",
     "Xotaker": "#ffff00",
     "Predator": "#ff0000",
@@ -36,8 +36,11 @@ function draw() {
             let pos = [x, y];
             let entity = logic.getEntityByPos(pos);
             let kindName = entity.kind.name;
-            let opacity = _computeOpacity(entity);
-            let color = COLORS[kindName] + opacity.toString(16);
+            let color = COLORS[kindName]
+            if (color.length == 1+6) {
+                let opacity = _computeOpacity(entity);
+                color += opacity.toString(16);
+            }
             _setColor(pos, color);
         }
     }
