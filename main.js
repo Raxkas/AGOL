@@ -26,6 +26,7 @@ function setup() {
     frameRate(FPS);
     createCanvas(logic.width * CELL_SIDE_PX, logic.height * CELL_SIDE_PX);
     background(BACKGROUND_COLOR);
+    strokeWeight(0.0625);
 }
 
 
