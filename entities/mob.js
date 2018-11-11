@@ -34,6 +34,10 @@ class Mob extends Entity {
         this._gameLogic.replace(pos, kind);
     }
 
+    kill(value) {
+        this._gameLogic.replace(value, Air);
+    }
+
     canMultiply() {
         return this.energy >= this._defaultEnergy + this._multiplicationCost;
     }

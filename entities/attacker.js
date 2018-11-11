@@ -18,8 +18,4 @@ class Attacker extends Mob {
         this._gameLogic.swap(this, pos);
         this.energy += this._energyFromPrey;
     }
-
-    kill(value) {
-        this._gameLogic.replace(value, Air);
-    }
 }
