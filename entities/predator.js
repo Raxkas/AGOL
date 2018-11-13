@@ -21,8 +21,8 @@ class Predator extends Attacker {
     }
 }
 
-Predator._defaultEnergy = 15;
-Predator._multiplicationCost = 2;
+Predator._defaultEnergy = 10;
+Predator._multiplicationCost = 3;
 Predator._energyLimit = 20;
 Predator._movementCost = 0.1;
 Predator._energyFromPrey = 1;
