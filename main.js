@@ -50,7 +50,6 @@ function showField(logic) {
             _setColor(pos, color);
         }
     }
-    LOGIC.nextTick();
 }
 
 
