@@ -30,11 +30,17 @@ function setup() {
 
 
 function draw() {
+    showField(LOGIC);
+    LOGIC.nextTick();
+}
+
+
+function showField(logic) {
     background(BACKGROUND_COLOR);
-    for (let y = 0; y < LOGIC.height; y++) {
-        for (let x = 0; x < LOGIC.width; x++) {
+    for (let y = 0; y < logic.height; y++) {
+        for (let x = 0; x < logic.width; x++) {
             let pos = [x, y];
-            let entity = LOGIC.getEntityByPos(pos);
+            let entity = logic.getEntityByPos(pos);
             let kindName = entity.kind.name;
             let color = COLORS[kindName]
             if (color.length == 1+6) {
