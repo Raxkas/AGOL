@@ -31,6 +31,7 @@ function setup() {
 
 function draw() {
     showField(LOGIC);
+    logNumbersOfKinds();
     LOGIC.nextTick();
 }
 
@@ -77,3 +78,12 @@ function _computeOpacity(entity) {
     }
     return opacity;
 }
+
+
+function logNumbersOfKinds() {
+    for (let kind of KINDS) {
+        let kindCount = LOGIC.count(kind);
+        console.log(kind.name, kindCount);
+    }
+}
+
