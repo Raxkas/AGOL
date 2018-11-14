@@ -35,6 +35,14 @@ class Mob extends Entity {
     }
 
     kill(value) {
+        if (!(value instanceof Entity)) {
+            value = this._gameLogic.getEntityByPos(value);
+        }
+        if (value instanceof Mob) {
+            if (value.energy > 0) {
+                value.energy = 0;
+            }
+        }
         this._gameLogic.replace(value, Air);
     }
 
