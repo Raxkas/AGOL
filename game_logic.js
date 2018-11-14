@@ -1,6 +1,6 @@
 function _getRandomOf(kinds, spawnChances) {
     const chancesSum = spawnChances.reduce((a, b) => a+b);
-    const seed = random() * chancesSum;
+    const seed = Math.random() * chancesSum;
     let passedChancesSum = 0;
     for (var id in spawnChances) {
         passedChancesSum += spawnChances[id];
