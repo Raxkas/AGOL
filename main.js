@@ -18,13 +18,12 @@ const COLORS = {
 const FPS = 5;
 
 
-var logic = null;
+const LOGIC = new AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES);
 
 
 function setup() {
-    logic = new AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES);
     frameRate(FPS);
-    createCanvas(logic.width * CELL_SIDE_PX, logic.height * CELL_SIDE_PX);
+    createCanvas(LOGIC.width * CELL_SIDE_PX, LOGIC.height * CELL_SIDE_PX);
     background(BACKGROUND_COLOR);
     strokeWeight(0.0625);
 }
@@ -32,10 +31,10 @@ function setup() {
 
 function draw() {
     background(BACKGROUND_COLOR);
-    for (let y = 0; y < logic.height; y++) {
-        for (let x = 0; x < logic.width; x++) {
+    for (let y = 0; y < LOGIC.height; y++) {
+        for (let x = 0; x < LOGIC.width; x++) {
             let pos = [x, y];
-            let entity = logic.getEntityByPos(pos);
+            let entity = LOGIC.getEntityByPos(pos);
             let kindName = entity.kind.name;
             let color = COLORS[kindName]
             if (color.length == 1+6) {
@@ -45,7 +44,7 @@ function draw() {
             _setColor(pos, color);
         }
     }
-    logic.nextTick();
+    LOGIC.nextTick();
 }
 
 
