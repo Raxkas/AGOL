@@ -78,6 +78,9 @@ class AGOLLogic {
             this._matrix[y][x] = null;
             let oldEntityArray = this.getArrayBy(oldEntity);
             let i = oldEntityArray.indexOf(oldEntity);
+            if (i < 0) {
+                throw "Entity not in array";
+            }
             oldEntityArray.splice(i, 1);
             oldEntity.alive = false;
         }
@@ -123,6 +126,9 @@ class AGOLLogic {
     
     _getEntityBy(value) {
         if (this._KINDS.includes(value.constructor)) {
+            if (!value.alive) {
+                throw "Dead entity";
+            }
             return value;
         }
         else {

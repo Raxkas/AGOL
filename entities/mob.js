@@ -57,7 +57,7 @@ class Mob extends Entity {
 
     nextTick() {
         this._nextTick();
-        if (this.energy <= 0) {
+        if (this.alive && this.energy <= 0) {
             this.kill(this);
         }
     }
