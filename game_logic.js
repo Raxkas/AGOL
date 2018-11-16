@@ -29,6 +29,7 @@ class AGOLLogic {
             }
         }
         this._generateEntities(spawnChances);
+        this.tickNumber = 0;
     }
     
     _generateEntities(spawnChances) {
@@ -47,6 +48,7 @@ class AGOLLogic {
                 entity.nextTick();
             }
         }
+        this.tickNumber += 1;
     }
     
     isPosCorrect(pos) {
