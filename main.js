@@ -46,7 +46,11 @@ function showField(logic) {
             let color = COLORS[kindName]
             if (color.length == 1+6) {
                 let opacity = _computeOpacity(entity);
-                color += opacity.toString(16);
+                opacity = opacity.toString(16);
+                if (opacity.length == 1) {
+                    opacity = '0' + opacity;
+                }
+                color += opacity;
             }
             _setColor(pos, color);
         }
