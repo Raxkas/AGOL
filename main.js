@@ -31,7 +31,7 @@ function setup() {
 
 function draw() {
     showField(LOGIC);
-    logNumbersOfKinds();
+    logGameInfo();
     LOGIC.nextTick();
 }
 
@@ -84,7 +84,7 @@ function _computeOpacity(entity) {
 }
 
 
-function logNumbersOfKinds() {
+function logGameInfo() {
     console.log(LOGIC.tickCount);
     for (let kind of KINDS) {
         let kindCount = LOGIC.count(kind);
