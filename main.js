@@ -85,9 +85,9 @@ function _computeOpacity(entity) {
 
 
 function logNumbersOfKinds() {
+    console.log(LOGIC.tickCount);
     for (let kind of KINDS) {
         let kindCount = LOGIC.count(kind);
         console.log(kind.name, kindCount);
     }
 }
-
