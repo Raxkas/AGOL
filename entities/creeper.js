@@ -42,10 +42,10 @@ class Creeper extends Attacker {
     }
 }
 
-Creeper._defaultEnergy = 10;
+Creeper._defaultEnergy = 20;
 Creeper._multiplicationCost = 3;
-Creeper._energyLimit = 14;
+Creeper._energyLimit = 27;
 Creeper._movementCost = 0.1;
 Creeper._energyFromPrey = 1;
 Creeper._bangRadius = 5;
-Creeper._childrenPerMultiplication = 8;
+Creeper._childrenPerMultiplication = 6;

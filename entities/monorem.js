@@ -1,4 +1,4 @@
-let _monoremsJointEnergy = 150;
+let _monoremsJointEnergy = 0;
 
 
 class Monorem extends Attacker {
@@ -7,7 +7,7 @@ class Monorem extends Attacker {
     }
 
     _nextTick() {
-        this.energy += 0.2;
+        this.energy += 1;
 
         if (this.isNear(Air) && this.canMultiply()) {
             let cell = random(this.findNear(Air));
