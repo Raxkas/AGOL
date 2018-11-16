@@ -85,7 +85,7 @@ function _computeOpacity(entity) {
 
 
 function logGameInfo() {
-    console.log(LOGIC.tickCount);
+    console.log(LOGIC.tickNumber);
     for (let kind of KINDS) {
         let kindCount = LOGIC.count(kind);
         console.log(kind.name, kindCount);
