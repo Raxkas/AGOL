@@ -1,51 +1,48 @@
-let _monoremsJointEnergy = 0;
+from random import choice
+
+from entities.air import Air
+from entities.grass import Grass
+from entities.attacker import Attacker
 
 
-class Monorem extends Attacker {
-    constructor() {
-        super();
-    }
+# TODO: remove global value
+_monorems_joint_energy = 0
 
-    _nextTick() {
-        this.energy += 1;
 
-        if (this.isNear(Air) && this.canMultiply()) {
-            let cell = random(this.findNear(Air));
-            this.multiply(cell);
-        }
+class Monorem(Attacker):
+    _default_energy = 10
+    _multiplication_cost = 5
+    _energy_limit = 20
+    _movement_cost = 0
+    _energy_from_prey = None
 
-        else if (this.isNear(Grass) && this.canMultiply() && this.energy >= this._defaultEnergy + this._multiplicationCost + 1) {
-            let cell = random(this.findNear(Grass));
-            this.kill(cell);
-            this.multiply(cell);
-        }
+    def _next_tick(self):
+        self.energy += 1
 
-        else if (this.isNear(Air, Grass)) {
-            let cell = random(this.findNear(Air, Grass));
-            this.move(cell);
-        }
-    }
+        if self.is_near(Air) and self.can_multiply():
+            cell = choice(self.find_near(Air))
+            self.multiply(cell)
 
-    get energy() {
-        if ("_gameLogic" in this) {
-            return _monoremsJointEnergy/this._gameLogic.count(this.kind);
-        }
-        return this._defaultEnergy;
-    }
+        elif self.is_near(Grass) and self.can_multiply() and self.energy >= self._default_energy + self._multiplication_cost + 1:
+            cell = choice(self.find_near(Grass))
+            self.kill(cell)
+            self.multiply(cell)
 
-    set energy(value) {
-        _monoremsJointEnergy -= this.energy;
-        _monoremsJointEnergy += value;
-        if ("_gameLogic" in this) {
-            if (this.energy > this._energyLimit) {
-                _monoremsJointEnergy = this._energyLimit*this._gameLogic.count(this.kind);
-            }
-        }
-    }
-}
+        elif self.is_near(Air, Grass):
+            cell = choice(self.find_near(Air, Grass))
+            self.move(cell)
 
-Monorem._defaultEnergy = 10;
-Monorem._multiplicationCost = 5;
-Monorem._energyLimit = 20;
-Monorem._movementCost = 0;
-Monorem._energyFromPrey = undefined;
+    @property
+    def energy(self):
+        if self._game_logic is None:
+            return self._default_energy
+        return _monorems_joint_energy/self._game_logic.count(type(self))
+
+    @energy.setter
+    def energy(self, value):
+        global _monorems_joint_energy
+        _monorems_joint_energy -= self.energy
+        _monorems_joint_energy += value
+        if self._game_logic is not None:
+            if self.energy > self._energy_limit:
+                _monorems_joint_energy = self._energy_limit * self._game_logic.count(type(self))

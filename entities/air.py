@@ -1,9 +1,6 @@
-class Air extends Entity {
-    constructor () {
-        super();
-    }
+from entities.entity import Entity
 
-    nextTick() {
-        null;
-    }
-}
+
+class Air(Entity):
+    def next_tick(self):
+        pass

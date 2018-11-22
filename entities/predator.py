@@ -1,28 +1,27 @@
-class Predator extends Attacker {
-    constructor() {
-        super();
-    }
+from random import choice
 
-    _nextTick() {
-        if (this.isNear(Air) && this.canMultiply()) {
-            let cell = random(this.findNear(Air));
-            this.multiply(cell);
-        }
+from entities.air import Air
+from entities.grass import Grass
+from entities.attacker import Attacker
+from entities.xotaker import Xotaker
 
-        else if (this.isNear(Xotaker)) {
-            let cell = random(this.findNear(Xotaker));
-            this.eat(cell);
-        }
 
-        else if (this.isNear(Air, Grass)) {
-            let cell = random(this.findNear(Air, Grass));
-            this.move(cell);
-        }
-    }
-}
+class Predator(Attacker):
+    _default_energy = 10
+    _multiplication_cost = 3
+    _energy_limit = 20
+    _movement_cost = 0.1
+    _energy_from_prey = 1
 
-Predator._defaultEnergy = 10;
-Predator._multiplicationCost = 3;
-Predator._energyLimit = 20;
-Predator._movementCost = 0.1;
-Predator._energyFromPrey = 1;
+    def _next_tick(self):
+        if self.is_near(Air) and self.can_multiply():
+            cell = choice(self.find_near(Air))
+            self.multiply(cell)
+
+        elif self.is_near(Xotaker):
+            cell = choice(self.find_near(Xotaker))
+            self.eat(cell)
+
+        elif self.is_near(Air, Grass):
+            cell = choice(self.find_near(Air, Grass))
+            self.move(cell)

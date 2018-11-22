@@ -1,35 +1,32 @@
-class Xotaker extends Attacker {
-    constructor() {
-        super();
-    }
+from random import choice
 
-    _nextTick() {
-        if (this.isNear(Air) && this.canMultiply()) {
-            let cell = random(this.findNear(Air));
-            this.multiply(cell);
-        }
+from entities.air import Air
+from entities.grass import Grass
+from entities.attacker import Attacker
 
-        else if (this.isNear(Grass) && this.canMultiply() && this.energy == this._energyLimit) {
-            let cell = random(this.findNear(Grass));
-            let oldPos = this.pos;
-            this.eat(cell);
-            this.multiply(oldPos);
-        }
 
-        else if (this.isNear(Grass)) {
-            let cell = random(this.findNear(Grass))
-            this.eat(cell);
-        }
+class Xotaker(Attacker):
+    _default_energy = 2
+    _multiplication_cost = 2
+    _energy_limit = 4
+    _movement_cost = 0.1
+    _energy_from_prey = 0.2
 
-        else if (this.isNear(Air)) {
-            let cell = random(this.findNear(Air));
-            this.move(cell)
-        }
-    }
-}
+    def _next_tick(self):
+        if self.is_near(Air) and self.can_multiply():
+            cell = choice(self.find_near(Air))
+            self.multiply(cell)
 
-Xotaker._defaultEnergy = 2;
-Xotaker._multiplicationCost = 2;
-Xotaker._energyLimit = 4;
-Xotaker._movementCost = 0.1;
-Xotaker._energyFromPrey = 0.2;
+        elif self.is_near(Grass) and self.can_multiply() and self.energy == self._energy_limit:
+            cell = choice(self.find_near(Grass))
+            old_pos = self.pos
+            self.eat(cell)
+            self.multiply(old_pos)
+
+        elif self.is_near(Grass):
+            cell = choice(self.find_near(Grass))
+            self.eat(cell)
+
+        elif self.is_near(Air):
+            cell = choice(self.find_near(Air))
+            self.move(cell)

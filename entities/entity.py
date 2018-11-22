@@ -1,39 +1,39 @@
-class Entity {
-    get kind() {
-        return this.constructor;
-    }
+from abc import ABCMeta, abstractmethod
+from itertools import product
 
-    get directions () {
-        let area = this._getArea(1);
-        return area.filter(p => this._gameLogic.getEntityByPos(p) !== this);
-    }
 
-     _getArea(radius) {
-        let [x, y] = this.pos;
-        let rangePositive = [];
-        for (let i = 1; i <= radius; i++) {
-            rangePositive.push(i);
-        }
-        let rangeNegative = rangePositive.map(v => -v).reverse();
-        let range = [].concat(rangeNegative, [0], rangePositive);
-        let xRange = range.map(v => x + v);
-        let yRange = range.map(v => y + v);
-        let rows = yRange.map(y => xRange.map(x => [x, y]));
-        let area = [].concat(...rows).filter(p => this._gameLogic.isPosCorrect(p));
-        return area;
-    }
+class Entity(metaclass=ABCMeta):
+    alive = None
+    _game_logic = None
+    pos = None
 
-    isNear() {
-        return this.findNear(...arguments).length > 0;
-    }
+    @abstractmethod
+    def next_tick(self):
+        pass
 
-    findNear() {
-        if (arguments.length == 1) {
-            let kind = arguments[0];
-            return this.directions.filter(pos => this._gameLogic.getEntityByPos(pos) instanceof kind);
-        }
-        let kinds = Array.from(arguments);
-        let found = kinds.map(kind => this.findNear.apply(this, [kind])).reduce((a, b) => a.concat(b));
-        return found;
-    }
-}
+    @property
+    def kind(self):
+        return type(self)
+
+    @property
+    def directions(self):
+        area = list(self._get_area(1))
+        area.remove(self.pos)
+        return tuple(area)
+
+    def _get_area(self, radius):
+        x, y = self.pos
+        offsets = range(-radius, radius+1)
+        x_range = map(x.__add__, offsets)
+        y_range = map(y.__add__, offsets)
+        area = product(x_range, y_range)
+        area = filter(self._game_logic.isPosCorrect, area)
+        return tuple(area)
+
+    def is_near(self, *args):
+        return len(self.find_near(*args)) > 0
+
+    def find_near(self, *kinds):
+        mobs_near = map(self._game_logic.getEntityByPos, self.directions)
+        found = filter(lambda mob: isinstance(mob, kinds), mobs_near)
+        return tuple(found)

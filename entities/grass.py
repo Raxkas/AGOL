@@ -1,17 +1,16 @@
-class Grass extends Mob {
-    constructor() {
-        super();
-    }
+from random import choice
 
-    _nextTick() {
-        this.energy++;
-        if (this.isNear(Air) && this.canMultiply()) {
-            let cell = random(this.findNear(Air));
-            this.multiply(cell);
-        }
-    }
-}
+from entities.air import Air
+from entities.mob import Mob
 
-Grass._defaultEnergy = 1;
-Grass._multiplicationCost = 4;
-Grass._energyLimit = 10;
+
+class Grass(Mob):
+    _default_energy = 1
+    _multiplication_cost = 4
+    _energy_limit = 10
+
+    def _next_tick(self):
+        self.energy += 1
+        if self.is_near(Air) and self.can_multiply():
+            cell = choice(self.find_near(Air))
+            self.multiply(cell)

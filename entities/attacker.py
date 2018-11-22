@@ -1,21 +1,24 @@
-class Attacker extends Mob {
-    get _movementCost() {
-        return this.kind._movementCost;
-    }
+from abc import ABCMeta, abstractmethod
 
-    get _energyFromPrey() {
-        return this.kind._energyFromPrey;
-    }
+from entities.air import Air
+from entities.mob import Mob
 
-    move(pos) {
-        this._gameLogic.swap(this, pos)
-        this.energy -= this._movementCost;
-    }
 
-    eat(pos) {
-        this.kill(pos);
-        this._gameLogic.replace(pos, Air);
-        this._gameLogic.swap(this, pos);
-        this.energy += this._energyFromPrey;
-    }
-}
+class Attacker(Mob, metaclass=ABCMeta):
+    @abstractmethod
+    def _movement_cost(self):
+        pass
+
+    @abstractmethod
+    def _energy_from_prey(self):
+        pass
+
+    def move(self, pos):
+        self._game_logic.swap(self, pos)
+        self.energy -= self._movement_cost
+
+    def eat(self, pos):
+        self.kill(pos)
+        self._game_logic.replace(pos, Air)
+        self._game_logic.swap(self, pos)
+        self.energy += self._energy_from_prey
