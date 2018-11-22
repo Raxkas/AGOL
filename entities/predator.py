@@ -15,13 +15,13 @@ class Predator(Attacker):
 
     def _next_tick(self):
         if self.is_near(Air) and self.can_multiply():
-            cell = choice(self.find_near(Air))
+            cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
         elif self.is_near(Xotaker):
-            cell = choice(self.find_near(Xotaker))
+            cell = choice(self.find_near(Xotaker)).pos
             self.eat(cell)
 
         elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass))
+            cell = choice(self.find_near(Air, Grass)).pos
             self.move(cell)

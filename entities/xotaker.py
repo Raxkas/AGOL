@@ -14,19 +14,19 @@ class Xotaker(Attacker):
 
     def _next_tick(self):
         if self.is_near(Air) and self.can_multiply():
-            cell = choice(self.find_near(Air))
+            cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
         elif self.is_near(Grass) and self.can_multiply() and self.energy == self._energy_limit:
-            cell = choice(self.find_near(Grass))
+            cell = choice(self.find_near(Grass)).pos
             old_pos = self.pos
             self.eat(cell)
             self.multiply(old_pos)
 
         elif self.is_near(Grass):
-            cell = choice(self.find_near(Grass))
+            cell = choice(self.find_near(Grass)).pos
             self.eat(cell)
 
         elif self.is_near(Air):
-            cell = choice(self.find_near(Air))
+            cell = choice(self.find_near(Air)).pos
             self.move(cell)

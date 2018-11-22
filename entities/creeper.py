@@ -24,11 +24,11 @@ class Creeper(Attacker):
                 self.spawn(Creeper, cell)
 
         elif self.is_near(Monorem):
-            cell = choice(self.find_near(Monorem))
+            cell = choice(self.find_near(Monorem)).pos
             self.eat(cell)
 
         elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass))
+            cell = choice(self.find_near(Air, Grass)).pos
             self.move(cell)
 
     def bang(self):

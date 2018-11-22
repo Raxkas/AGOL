@@ -20,16 +20,16 @@ class Monorem(Attacker):
         self.energy += 1
 
         if self.is_near(Air) and self.can_multiply():
-            cell = choice(self.find_near(Air))
+            cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
         elif self.is_near(Grass) and self.can_multiply() and self.energy >= self._default_energy + self._multiplication_cost + 1:
-            cell = choice(self.find_near(Grass))
+            cell = choice(self.find_near(Grass)).pos
             self.kill(cell)
             self.multiply(cell)
 
         elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass))
+            cell = choice(self.find_near(Air, Grass)).pos
             self.move(cell)
 
     @property

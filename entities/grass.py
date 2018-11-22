@@ -12,5 +12,5 @@ class Grass(Mob):
     def _next_tick(self):
         self.energy += 1
         if self.is_near(Air) and self.can_multiply():
-            cell = choice(self.find_near(Air))
+            cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
