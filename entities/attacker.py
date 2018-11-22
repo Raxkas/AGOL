@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-from entities.air import Air
 from entities.mob import Mob
 
 
@@ -19,6 +18,5 @@ class Attacker(Mob, metaclass=ABCMeta):
 
     def eat(self, pos):
         self.kill(pos)
-        self._game_logic.replace(pos, Air)
         self._game_logic.swap(self, pos)
         self.energy += self._energy_from_prey
