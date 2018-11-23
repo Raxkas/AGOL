@@ -1,15 +1,13 @@
+from itertools import accumulate
 from collections.abc import Sequence
 from random import random
 
 
-# TODO: use itertools.accumulate
 def _get_random_of(kinds, spawn_chances):
     assert len(kinds) == len(spawn_chances)
     chances_sum = sum(spawn_chances)
     seed = random() * chances_sum
-    passed_chances_sum = 0
-    for kind, chance in zip(kinds, spawn_chances):
-        passed_chances_sum += chance
+    for kind, passed_chances_sum in zip(kinds, accumulate(spawn_chances)):
         if passed_chances_sum > seed:
             return kind
 
