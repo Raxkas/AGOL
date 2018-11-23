@@ -99,5 +99,5 @@ class AGOLLogic:
         else:
             return self.get_entity_by_pos(value)
 
-    def count(self, kind):
+    def count_kind(self, kind):
         return len(self._get_array_by(kind))

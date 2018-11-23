@@ -36,7 +36,7 @@ class Monorem(Attacker):
     def energy(self):
         if self._game_logic is None:
             return self._default_energy
-        return _monorems_joint_energy/self._game_logic.count(type(self))
+        return _monorems_joint_energy/self._game_logic.count_kind(type(self))
 
     @energy.setter
     def energy(self, value):
@@ -45,4 +45,4 @@ class Monorem(Attacker):
         _monorems_joint_energy += value
         if self._game_logic is not None:
             if self.energy > self._energy_limit:
-                _monorems_joint_energy = self._energy_limit * self._game_logic.count(type(self))
+                _monorems_joint_energy = self._energy_limit * self._game_logic.count_kind(type(self))
