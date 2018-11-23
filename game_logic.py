@@ -58,14 +58,14 @@ class AGOLLogic:
 
         if old_entity is not None:
             self._matrix[y][x] = None
-            self.get_array_by(old_entity).remove(old_entity)
+            self._get_array_by(old_entity).remove(old_entity)
             old_entity.alive = False
 
         new_entity = kind()
         new_entity.pos = pos
         new_entity._game_logic = self
         self._matrix[y][x] = new_entity
-        self.get_array_by(new_entity).append(new_entity)
+        self._get_array_by(new_entity).append(new_entity)
         new_entity.alive = True
 
     def swap(self, value1, value2):
@@ -75,7 +75,7 @@ class AGOLLogic:
         (x1, y1), (x2, y2) = pos1, pos2
         self._matrix[y1][x1], self._matrix[y2][x2] = entity2, entity1
 
-    def get_array_by(self, value):
+    def _get_array_by(self, value):
         id = self._get_id(value)
         return self._ARRAYS[id]
 
@@ -100,4 +100,4 @@ class AGOLLogic:
             return self.get_entity_by_pos(value)
 
     def count(self, kind):
-        return len(self.get_array_by(kind))
+        return len(self._get_array_by(kind))
