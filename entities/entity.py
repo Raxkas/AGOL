@@ -27,13 +27,13 @@ class Entity(metaclass=ABCMeta):
         x_range = map(x.__add__, offsets)
         y_range = map(y.__add__, offsets)
         area = product(x_range, y_range)
-        area = filter(self._game_logic.isPosCorrect, area)
+        area = filter(self._game_logic.is_pos_correct, area)
         return tuple(area)
 
     def is_near(self, *args):
         return len(self.find_near(*args)) > 0
 
     def find_near(self, *kinds):
-        mobs_near = map(self._game_logic.getEntityByPos, self.directions)
+        mobs_near = map(self._game_logic.get_entity_by_pos, self.directions)
         found = filter(lambda mob: isinstance(mob, kinds), mobs_near)
         return tuple(found)
