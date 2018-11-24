@@ -12,12 +12,13 @@ def _get_random_of(kinds, spawn_chances):
             return kind
 
 
+# TODO: rename
 class AGOLLogic:
     def __init__(self, width, height, kinds, spawn_chances):
         self.width = width
         self.height = height
-        self._KINDS = tuple(kinds)
-        self._ARRAYS = tuple(list() for kind in self._KINDS)
+        self.kinds = tuple(kinds)
+        self._ARRAYS = tuple(list() for kind in self.kinds)
         self._matrix = []
         for y in range(self.height):
             row = [None] * self.width
@@ -28,7 +29,7 @@ class AGOLLogic:
     def _generate_entities(self, spawn_chances):
         for y in range(self.height):
             for x in range(self.width):
-                kind = _get_random_of(self._KINDS, spawn_chances)
+                kind = _get_random_of(self.kinds, spawn_chances)
                 self.replace((x, y), kind)
 
     def next_tick(self):
@@ -82,17 +83,17 @@ class AGOLLogic:
     def _get_id(self, value):
         if value in self._ARRAYS:
             return self._ARRAYS.index(value)
-        elif value in self._KINDS:
-            return self._KINDS.index(value)
-        elif type(value) in self._KINDS:
-            return self._KINDS.index(type(value))
+        elif value in self.kinds:
+            return self.kinds.index(value)
+        elif type(value) in self.kinds:
+            return self.kinds.index(type(value))
         elif isinstance(value, Sequence):
             return self.get_entity_by_pos(value)
         else:
             raise TypeError("Incorrect value: %s" % value)
 
     def _get_entity_by(self, value):
-        if type(value) in self._KINDS:
+        if type(value) in self.kinds:
             if not value.alive:
                 raise AssertionError("Dead entity")
             return value
