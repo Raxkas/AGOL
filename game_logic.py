@@ -18,7 +18,7 @@ class AGOLLogic:
         self.width = width
         self.height = height
         self.kinds = tuple(kinds)
-        self._ARRAYS = tuple(list() for kind in self.kinds)
+        self._arrays = tuple(list() for kind in self.kinds)
         self._matrix = []
         for y in range(self.height):
             row = [None] * self.width
@@ -33,7 +33,7 @@ class AGOLLogic:
                 self.replace((x, y), kind)
 
     def next_tick(self):
-        entities = sum(self._ARRAYS, [])
+        entities = sum(self._arrays, [])
         for entity in entities:
             if entity.alive:
                 entity.next_tick()
@@ -78,11 +78,11 @@ class AGOLLogic:
 
     def _get_array_by(self, value):
         id = self._get_id(value)
-        return self._ARRAYS[id]
+        return self._arrays[id]
 
     def _get_id(self, value):
-        if value in self._ARRAYS:
-            return self._ARRAYS.index(value)
+        if value in self._arrays:
+            return self._arrays.index(value)
         elif value in self.kinds:
             return self.kinds.index(value)
         elif type(value) in self.kinds:
