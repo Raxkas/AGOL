@@ -1,4 +1,5 @@
 from itertools import accumulate
+from collections import namedtuple
 from collections.abc import Sequence
 from random import random
 
@@ -12,23 +13,25 @@ def _get_random_of(kinds, spawn_chances):
             return kind
 
 
+_Size = namedtuple("Size", "x y")
+
+
 # TODO: rename
 class AGOLLogic:
     def __init__(self, width, height, kinds, spawn_chances):
-        self.width = width
-        self.height = height
+        self.size = _Size(width, height)
         self.kinds = tuple(kinds)
         self._arrays = tuple(list() for kind in self.kinds)
         self._matrix = []
-        for y in range(self.height):
-            row = [None] * self.width
+        for y in range(self.size.y):
+            row = [None] * self.size.x
             self._matrix.append(row)
         self._generate_entities(spawn_chances)
         self.tick_number = 0
 
     def _generate_entities(self, spawn_chances):
-        for y in range(self.height):
-            for x in range(self.width):
+        for y in range(self.size.y):
+            for x in range(self.size.x):
                 kind = _get_random_of(self.kinds, spawn_chances)
                 self.replace((x, y), kind)
 
@@ -41,7 +44,7 @@ class AGOLLogic:
 
     def is_pos_correct(self, pos):
         x, y = pos
-        return 0 <= x < self.width and 0 <= y < self.height
+        return 0 <= x < self.size.x and 0 <= y < self.size.y
 
     def get_entity_by_pos(self, pos):
         if not self.is_pos_correct(pos):
