@@ -5,15 +5,6 @@ from collections.abc import Sequence
 from random import random
 
 
-def _get_random_of(kinds, spawn_chances):
-    assert len(kinds) == len(spawn_chances)
-    chances_sum = sum(spawn_chances)
-    seed = random() * chances_sum
-    for kind, passed_chances_sum in zip(kinds, accumulate(spawn_chances)):
-        if passed_chances_sum > seed:
-            return kind
-
-
 _Size = namedtuple("Size", "x y")
 
 
@@ -31,8 +22,17 @@ class AGOLLogic:
     def _generate_entities(self, spawn_chances):
         for y in range(self.size.y):
             for x in range(self.size.x):
-                kind = _get_random_of(self.kinds, spawn_chances)
+                kind = self._choice_random_kind(self.kinds, spawn_chances)
                 self.replace((x, y), kind)
+
+    @staticmethod
+    def _choice_random_kind(kinds, spawn_chances):
+        assert len(kinds) == len(spawn_chances)
+        chances_sum = sum(spawn_chances)
+        seed = random() * chances_sum
+        for kind, passed_chances_sum in zip(kinds, accumulate(spawn_chances)):
+            if passed_chances_sum > seed:
+                return kind
 
     def next_tick(self):
         entities = sum(self._arrays, [])
