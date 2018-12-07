@@ -22,10 +22,8 @@ class AGOLLogic:
         self.size = _Size(width, height)
         self.kinds = tuple(kinds)
         self._arrays = tuple(list() for kind in self.kinds)
-        self._matrix = []
-        for y in range(self.size.y):
-            row = [None] * self.size.x
-            self._matrix.append(row)
+        self._matrix = [[None] * self.size.x  # row
+                        for y in range(self.size.y)]
         self._generate_entities(spawn_chances)
         self.tick_number = 0
 
