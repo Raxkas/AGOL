@@ -3,9 +3,7 @@ from itertools import product
 
 
 class Entity(metaclass=ABCMeta):
-    alive = None
-    _game_logic = None
-    pos = None
+    __slots__ = ("_game_logic", "alive", "pos")
 
     @abstractmethod
     def next_tick(self):

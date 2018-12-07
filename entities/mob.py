@@ -5,7 +5,7 @@ from entities.air import Air
 
 
 class Mob(Entity, metaclass=ABCMeta):
-    _energy = None
+    __slots__ = ("_energy",)
 
     @abstractmethod
     def _next_tick(self):

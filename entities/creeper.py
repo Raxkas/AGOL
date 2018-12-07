@@ -7,6 +7,8 @@ from entities.monorem import Monorem
 
 
 class Creeper(Attacker):
+    __slots__ = ()
+
     _default_energy = 20
     _multiplication_cost = 3
     _energy_limit = 27

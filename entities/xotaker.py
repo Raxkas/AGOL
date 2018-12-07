@@ -6,6 +6,8 @@ from entities.attacker import Attacker
 
 
 class Xotaker(Attacker):
+    __slots__ = ()
+
     _default_energy = 2
     _multiplication_cost = 2
     _energy_limit = 4

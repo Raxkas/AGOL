@@ -7,6 +7,8 @@ from entities.xotaker import Xotaker
 
 
 class Predator(Attacker):
+    __slots__ = ()
+
     _default_energy = 10
     _multiplication_cost = 3
     _energy_limit = 20

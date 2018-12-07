@@ -10,6 +10,8 @@ _monorems_joint_energy = 0
 
 
 class Monorem(Attacker):
+    __slots__ = ()
+
     _default_energy = 10
     _multiplication_cost = 5
     _energy_limit = 20
@@ -34,7 +36,7 @@ class Monorem(Attacker):
 
     @property
     def energy(self):
-        if self._game_logic is None:
+        if not hasattr(self, "_game_logic"):
             return self._default_energy
         return _monorems_joint_energy/self._game_logic.count_kind(type(self))
 
@@ -43,6 +45,6 @@ class Monorem(Attacker):
         global _monorems_joint_energy
         _monorems_joint_energy -= self.energy
         _monorems_joint_energy += value
-        if self._game_logic is not None:
+        if hasattr(self, "_game_logic"):
             if self.energy > self._energy_limit:
                 _monorems_joint_energy = self._energy_limit * self._game_logic.count_kind(type(self))

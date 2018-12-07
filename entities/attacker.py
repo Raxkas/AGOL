@@ -4,6 +4,8 @@ from entities.mob import Mob
 
 
 class Attacker(Mob, metaclass=ABCMeta):
+    __slots__ = ()
+
     @abstractmethod
     def _movement_cost(self):
         pass
