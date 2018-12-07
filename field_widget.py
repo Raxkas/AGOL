@@ -6,19 +6,11 @@ from entities.mob import Mob
 
 
 class FieldWidget(Widget):
-    # TODO: move to constructor
-    COLORS = {
-        "Air": (1, 1, 1, 0),
-        "Grass": (0, 0.5, 0),
-        "Xotaker": (1, 1, 0),
-        "Predator": (1, 0, 0),
-        "Creeper": (0, 0.25, 0.75),
-        "Monorem": (1, 1, 1)
-    }
     _agol_texture = None
 
-    def __init__(self, agol_logic, **kwargs):
+    def __init__(self, agol_logic, colors, **kwargs):
         self._agol_logic = agol_logic
+        self._colors = colors
         super().__init__(**kwargs)
         self.bind(size=lambda *args: self._update_canvas())
 
@@ -53,12 +45,11 @@ class FieldWidget(Widget):
         with self.canvas:
             Rectangle(pos=self.pos, size=rect_size, texture=self._agol_texture)
 
-    @classmethod
-    def _get_color_by_entity(cls, entity):
+    def _get_color_by_entity(self, entity):
         kind_name = type(entity).__name__
-        color = cls.COLORS[kind_name]
+        color = self._colors[kind_name]
         if len(color) == 3:
-            opacity = cls._compute_opacity(entity)
+            opacity = self._compute_opacity(entity)
             color += (opacity,)
         return color
 

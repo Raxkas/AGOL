@@ -16,6 +16,14 @@ KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem]
 SPAWN_CHANCES = [128, 1, 1, 1, 1, 1]
 WIDTH = 64
 HEIGHT = 64
+COLORS = {
+    "Air": (1, 1, 1, 0),
+    "Grass": (0, 0.5, 0),
+    "Xotaker": (1, 1, 0),
+    "Predator": (1, 0, 0),
+    "Creeper": (0, 0.25, 0.75),
+    "Monorem": (1, 1, 1)
+}
 
 
 class AGOLApp(App):
@@ -29,7 +37,7 @@ class AGOLApp(App):
 
     def build(self):
         self.LOGIC = AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES)
-        self.field_widget = FieldWidget(self.LOGIC)
+        self.field_widget = FieldWidget(self.LOGIC, COLORS)
         Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.FPS)
         root_widget = self.field_widget
         return root_widget
