@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from itertools import product
 
 
 class Entity(metaclass=ABCMeta):
@@ -20,13 +19,7 @@ class Entity(metaclass=ABCMeta):
         return tuple(area)
 
     def _get_area(self, radius):
-        x, y = self.pos
-        offsets = range(-radius, radius+1)
-        x_range = map(x.__add__, offsets)
-        y_range = map(y.__add__, offsets)
-        area = product(x_range, y_range)
-        area = filter(self._game_logic.is_pos_correct, area)
-        return tuple(area)
+        return self._game_logic.get_region_points(self.pos, radius)
 
     def is_near(self, *args):
         return len(self.find_near(*args)) > 0
