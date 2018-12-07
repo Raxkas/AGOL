@@ -47,7 +47,7 @@ class AGOLLogic:
 
     def get_entity_by_pos(self, pos):
         if not self.is_pos_correct(pos):
-            raise ValueError("Incorrect pos: " + pos)
+            raise ValueError("Incorrect pos: %s" % pos)
         x, y = pos
         return self._matrix[y][x]
 
