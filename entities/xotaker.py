@@ -15,11 +15,11 @@ class Xotaker(Attacker):
     _energy_from_prey = 0.2
 
     def _next_tick(self):
-        if self.is_near(Air) and self.can_multiply():
+        if self.can_multiply() and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
-        elif self.is_near(Grass) and self.can_multiply() and self.energy == self._energy_limit:
+        elif self.energy == self._energy_limit and self.can_multiply() and self.is_near(Grass):
             cell = choice(self.find_near(Grass)).pos
             old_pos = self.pos
             self.eat(cell)

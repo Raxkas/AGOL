@@ -21,11 +21,11 @@ class Monorem(Attacker):
     def _next_tick(self):
         self.energy += 1
 
-        if self.is_near(Air) and self.can_multiply():
+        if self.can_multiply() and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
-        elif self.is_near(Grass) and self.can_multiply() and self.energy >= self._default_energy + self._multiplication_cost + 1:
+        elif self.can_multiply() and self.energy >= self._default_energy + self._multiplication_cost + 1 and self.is_near(Grass):  # TODO: energy checking is not clean
             cell = choice(self.find_near(Grass)).pos
             self.kill(cell)
             self.multiply(cell)
