@@ -10,7 +10,8 @@ class FieldWidget(Widget):
 
     def __init__(self, agol_logic, colors, **kwargs):
         self._agol_logic = agol_logic
-        self._colors = colors
+        self._colors = {key: tuple(int(k*255) for k in color)
+                        for key, color in colors.items()}
         super().__init__(**kwargs)
         self.bind(size=lambda *args: self._update_canvas())
 
@@ -23,7 +24,6 @@ class FieldWidget(Widget):
             for x in range(size.x):
                 entity = self._agol_logic.get_entity_by_pos((x, y))
                 color = self._get_color_by_entity(entity)
-                color = map(lambda k: int(k*255), color)
                 i = x + y*size.x
                 start, end = 4*i, 4*(i+1)
                 buf[start:end] = color
@@ -60,4 +60,5 @@ class FieldWidget(Widget):
         if not isinstance(entity, Mob):
             return max_opacity
         k = entity.energy / entity._energy_limit
-        return min_opacity + k*(max_opacity-min_opacity)
+        result = min_opacity + k*(max_opacity-min_opacity)
+        return int(result*255)
