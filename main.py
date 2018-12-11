@@ -1,7 +1,11 @@
+from math import log2
+
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.uix.boxlayout import BoxLayout
 
 from field_widget import FieldWidget
+from graph_widget import GraphWidget
 
 from game_logic import AGOLLogic
 from entities.air import Air
@@ -29,17 +33,22 @@ COLORS = {
 class AGOLApp(App):
     LOGIC = None
     field_widget = None
+    graph_widget = None
     FPS = 5
 
     def next_tick(self):
         self.field_widget.update()
+        self.graph_widget.update()
         self.LOGIC.next_tick()
 
     def build(self):
         self.LOGIC = AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES)
         self.field_widget = FieldWidget(self.LOGIC, COLORS)
+        self.graph_widget = GraphWidget(self.LOGIC, COLORS, scaling_function=lambda c: log2(1 + c))
         Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.FPS)
-        root_widget = self.field_widget
+        root_widget = BoxLayout(spacing=16)
+        root_widget.add_widget(self.field_widget)
+        root_widget.add_widget(self.graph_widget)
         return root_widget
 
 
