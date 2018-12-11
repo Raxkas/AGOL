@@ -46,8 +46,6 @@ class AGOLLogic:
         return 0 <= x < self.size.x and 0 <= y < self.size.y
 
     def get_entity_by_pos(self, pos):
-        if not self.is_pos_correct(pos):
-            raise ValueError("Incorrect pos: %s" % pos)
         x, y = pos
         return self._matrix[y][x]
 
