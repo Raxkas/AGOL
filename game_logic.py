@@ -62,8 +62,8 @@ class AGOLLogic:
             old_entity.alive = False
 
         new_entity = kind()
-        new_entity.pos = pos
         new_entity._game_logic = self
+        new_entity.pos = pos
         self._matrix[y][x] = new_entity
         self._get_array_by(new_entity).append(new_entity)
         new_entity.alive = True
