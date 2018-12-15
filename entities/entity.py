@@ -13,22 +13,18 @@ class Entity(metaclass=ABCMeta):
         return type(self)
 
     @property
-    def directions(self):
-        area = list(self._get_area(1))
-        area.remove(self.pos)
-        return tuple(area)
+    def adjacent_entities(self):
+        entities = self._game_logic.get_entities_in_region(self.pos, 1)
+        entities.remove(self)
+        return entities
 
     def _get_area(self, radius):
         return self._game_logic.get_region_points(self.pos, radius)
 
     def is_near(self, *kinds_needed):
-        mobs_near = self.find_near()
-        kinds_near = frozenset(map(type, mobs_near))
+        kinds_near = frozenset(map(type, self.adjacent_entities))
         return any(map(lambda kind: issubclass(kind, kinds_needed), kinds_near))
 
     def find_near(self, *kinds):
-        mobs_near = map(self._game_logic.get_entity_by_pos, self.directions)
-        if not kinds:
-            return tuple(mobs_near)
-        found = filter(lambda mob: isinstance(mob, kinds), mobs_near)
+        found = filter(lambda entity: isinstance(entity, kinds), self.adjacent_entities)
         return tuple(found)
