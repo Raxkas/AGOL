@@ -34,7 +34,7 @@ class AGOLApp(App):
     LOGIC = None
     field_widget = None
     graph_widget = None
-    FPS = 5
+    FPS = 6
 
     def __init__(self):
         super().__init__()
