@@ -46,6 +46,9 @@ class AGOLApp(App):
         self.graph_widget.update()
         self.LOGIC.next_tick()
 
+    def on_pause(self):
+        return True
+
     def build(self):
         self.field_widget = FieldWidget(self.LOGIC, COLORS)
         self.graph_widget = GraphWidget(self.LOGIC, COLORS, scaling_function=lambda c: log2(1 + c))
