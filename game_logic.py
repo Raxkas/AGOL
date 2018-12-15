@@ -1,6 +1,5 @@
 from collections import namedtuple
-from functools import lru_cache
-from itertools import accumulate, product
+from itertools import accumulate
 from collections.abc import Sequence
 from random import random
 
@@ -89,16 +88,6 @@ class AGOLLogic:
         rows = self._matrix[y_slice]
         entities_rows = map(lambda row: row[x_slice], rows)
         return sum(entities_rows, [])
-
-    @lru_cache(maxsize=None)
-    def get_region_points(self, pos, radius):
-        x, y = pos
-        offsets = range(-radius, radius + 1)
-        x_range = tuple(map(x.__add__, offsets))
-        y_range = tuple(map(y.__add__, offsets))
-        points = product(x_range, y_range)
-        points = filter(self.is_pos_correct, points)
-        return tuple(points)
 
     def _get_array_by(self, value):
         id = self._get_id(value)
