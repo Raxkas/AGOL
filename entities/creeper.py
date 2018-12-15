@@ -20,10 +20,10 @@ class Creeper(Attacker):
     def _next_tick(self):
         if self.can_multiply():
             self.bang()
-            available_cells = list(self._get_area(self._bang_radius))
-            cells_to_spawn = sample(available_cells, self._children_per_multiplication)
-            for cell in cells_to_spawn:
-                self.spawn(Creeper, cell)
+            available_air = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
+            air_to_spawn_on = sample(available_air, self._children_per_multiplication)
+            for air in air_to_spawn_on:
+                self.spawn(Creeper, air.pos)
 
         elif self.is_near(Monorem):
             cell = choice(self.find_near(Monorem)).pos
@@ -34,6 +34,6 @@ class Creeper(Attacker):
             self.move(cell)
 
     def bang(self):
-        damaged = self._get_area(self._bang_radius)
-        for pos in damaged:
-            self.kill(pos)
+        damaged_entities = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
+        for entity in damaged_entities:
+            self.kill(entity)

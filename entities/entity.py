@@ -18,9 +18,6 @@ class Entity(metaclass=ABCMeta):
         entities.remove(self)
         return entities
 
-    def _get_area(self, radius):
-        return self._game_logic.get_region_points(self.pos, radius)
-
     def is_near(self, *kinds_needed):
         kinds_near = frozenset(map(type, self.adjacent_entities))
         return any(map(lambda kind: issubclass(kind, kinds_needed), kinds_near))
