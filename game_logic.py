@@ -76,6 +76,20 @@ class AGOLLogic:
         (x1, y1), (x2, y2) = pos1, pos2
         self._matrix[y1][x1], self._matrix[y2][x2] = entity2, entity1
 
+    def get_entities_in_region(self, pos, radius):
+        x, y = pos
+        x_slice = slice(
+            max(x - radius, 0),
+            min(x + radius, self.size.x - 1) + 1
+        )
+        y_slice = slice(
+            max(y - radius, 0),
+            min(y + radius, self.size.y - 1) + 1
+        )
+        rows = self._matrix[y_slice]
+        entities_rows = map(lambda row: row[x_slice], rows)
+        return sum(entities_rows, [])
+
     @lru_cache(maxsize=None)
     def get_region_points(self, pos, radius):
         x, y = pos
