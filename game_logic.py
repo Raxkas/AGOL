@@ -11,7 +11,7 @@ class AGOLLogic:
     def __init__(self, width, height, kinds, spawn_chances):
         self.size = _Size(width, height)
         self.kinds = tuple(kinds)
-        self._arrays = {kind: list() for kind in self.kinds}
+        self._kinds_arrays = {kind: list() for kind in self.kinds}
         self._matrix = [[None] * self.size.x  # row
                         for y in range(self.size.y)]
         self._generate_entities(spawn_chances)
@@ -33,7 +33,7 @@ class AGOLLogic:
                 return kind
 
     def next_tick(self):
-        entities = sum(self._arrays.values(), [])
+        entities = sum(self._kinds_arrays.values(), [])
         for entity in entities:
             if entity.alive:
                 entity.next_tick()
@@ -57,14 +57,14 @@ class AGOLLogic:
 
         if old_entity is not None:
             self._matrix[y][x] = None
-            self._arrays[type(old_entity)].remove(old_entity)
+            self._kinds_arrays[type(old_entity)].remove(old_entity)
             old_entity.alive = False
 
         new_entity = kind()
         new_entity._game_logic = self
         new_entity.pos = pos
         self._matrix[y][x] = new_entity
-        self._arrays[kind].append(new_entity)
+        self._kinds_arrays[kind].append(new_entity)
         new_entity.alive = True
 
     def swap(self, value1, value2):
@@ -97,4 +97,4 @@ class AGOLLogic:
             return self.get_entity_by_pos(value)
 
     def count_kind(self, kind):
-        return len(self._arrays[kind])
+        return len(self._kinds_arrays[kind])
