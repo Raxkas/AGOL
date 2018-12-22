@@ -10,9 +10,9 @@ class Grass(Mob):
     _default_energy = 1
     _multiplication_cost = 4
     _energy_limit = 10
+    _energy_increment_per_tick = 1
 
     def _next_tick(self):
-        self.energy += 1
         if self.can_multiply() and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)

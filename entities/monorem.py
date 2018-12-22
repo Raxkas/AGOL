@@ -15,12 +15,11 @@ class Monorem(Attacker):
     _default_energy = 10
     _multiplication_cost = 5
     _energy_limit = 20
+    _energy_increment_per_tick = 1
     _movement_cost = 0
     _energy_from_prey = None
 
     def _next_tick(self):
-        self.energy += 1
-
         if self.can_multiply() and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)

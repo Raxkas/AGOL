@@ -23,6 +23,10 @@ class Mob(Entity, metaclass=ABCMeta):
     def _energy_limit(self):
         pass
 
+    @abstractmethod
+    def _energy_increment_per_tick(self):
+        pass
+
     @property
     def energy(self):
         return self._energy
@@ -58,6 +62,7 @@ class Mob(Entity, metaclass=ABCMeta):
         self.energy -= self._multiplication_cost
 
     def next_tick(self):
+        self.energy += self._energy_increment_per_tick
         self._next_tick()
         if self.alive and self.energy <= 0:
             self.kill(self)

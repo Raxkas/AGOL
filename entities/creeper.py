@@ -12,6 +12,7 @@ class Creeper(Attacker):
     _default_energy = 20
     _multiplication_cost = 3
     _energy_limit = 27
+    _energy_increment_per_tick = 0
     _movement_cost = 0.1
     _energy_from_prey = 1
     _bang_radius = 5
