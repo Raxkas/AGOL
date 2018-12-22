@@ -40,6 +40,7 @@ class FieldWidget(Widget):
             self.size[0] / self._agol_logic.size.x,
             self.size[1] / self._agol_logic.size.y
         )  # cell must have square shape
+        cell_side_px = int(cell_side_px)
         rect_size = (cell_side_px * self._agol_logic.size.x,
                      cell_side_px * self._agol_logic.size.y)
         with self.canvas:
