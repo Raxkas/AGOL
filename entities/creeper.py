@@ -22,7 +22,8 @@ class Creeper(Attacker):
         if self._do_multiply_on(Air):
             self.bang()
             available_air = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
-            air_to_spawn_on = sample(available_air, self._children_per_multiplication)
+            children_count = min(self._children_per_multiplication, len(available_air))
+            air_to_spawn_on = sample(available_air, children_count)
             for air in air_to_spawn_on:
                 self.spawn(Creeper, air.pos)
 
