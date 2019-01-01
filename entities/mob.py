@@ -68,5 +68,5 @@ class Mob(Entity, metaclass=ABCMeta):
     def next_tick(self):
         self.energy += self._energy_increment_per_tick
         self._next_tick()
-        if self.alive and self.energy <= 0:
+        if self.is_alive and self.energy <= 0:
             self.kill(self)

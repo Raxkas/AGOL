@@ -35,7 +35,7 @@ class AGOLLogic:
     def next_tick(self):
         entities = sum(self._kinds_arrays.values(), [])
         for entity in entities:
-            if entity.alive:
+            if entity.is_alive:
                 entity.next_tick()
         self.tick_number += 1
 
@@ -58,12 +58,12 @@ class AGOLLogic:
         if old_entity is not None:
             self._matrix[y][x] = None
             self._kinds_arrays[type(old_entity)].remove(old_entity)
-            old_entity.alive = False
+            old_entity.is_alive = False
         new_entity = kind.__new__(kind)
         self._matrix[y][x] = new_entity
         self._kinds_arrays[kind].append(new_entity)
         new_entity.__init__(game_logic=self, pos=pos)
-        new_entity.alive = True
+        new_entity.is_alive = True
 
     def swap(self, value1, value2):
         entity1, entity2 = map(self._get_entity_by, [value1, value2])
@@ -88,7 +88,7 @@ class AGOLLogic:
 
     def _get_entity_by(self, value):
         if type(value) in self.kinds:
-            if not value.alive:
+            if not value.is_alive:
                 raise AssertionError("Dead entity")
             return value
         else:
