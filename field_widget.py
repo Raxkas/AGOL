@@ -50,7 +50,7 @@ class FieldWidget(Widget):
         kind_name = type(entity).__name__
         color = self._colors[kind_name]
         if len(color) == 3:
-            opacity = self._compute_opacity(entity)
+            opacity = int(self._compute_opacity(entity)*255)
             color += (opacity,)
         return color
 
@@ -61,5 +61,4 @@ class FieldWidget(Widget):
         if not isinstance(entity, Mob):
             return max_opacity
         k = entity.energy / entity._energy_limit
-        result = min_opacity + k*(max_opacity-min_opacity)
-        return int(result*255)
+        return min_opacity + k*(max_opacity-min_opacity)
