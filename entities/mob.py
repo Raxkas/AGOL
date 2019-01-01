@@ -11,18 +11,22 @@ class Mob(Entity, metaclass=ABCMeta):
     def _next_tick(self):
         pass
 
+    @property
     @abstractmethod
     def _default_energy(self):
         pass
 
+    @property
     @abstractmethod
     def _multiplication_cost(self):
         pass
 
+    @property
     @abstractmethod
     def _energy_limit(self):
         pass
 
+    @property
     @abstractmethod
     def _energy_increment_per_tick(self):
         pass

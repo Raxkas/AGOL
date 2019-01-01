@@ -6,10 +6,12 @@ from entities.mob import Mob
 class Attacker(Mob, metaclass=ABCMeta):
     __slots__ = ()
 
+    @property
     @abstractmethod
     def _movement_cost(self):
         pass
 
+    @property
     @abstractmethod
     def _energy_from_prey(self):
         pass
