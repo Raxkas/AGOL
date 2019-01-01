@@ -4,6 +4,10 @@ from abc import ABCMeta, abstractmethod
 class Entity(metaclass=ABCMeta):
     __slots__ = ("_game_logic", "alive", "pos")
 
+    def __init__(self, *, game_logic, pos):
+        self._game_logic = game_logic
+        self.pos = pos
+
     @abstractmethod
     def next_tick(self):
         pass

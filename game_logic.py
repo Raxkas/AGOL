@@ -59,12 +59,10 @@ class AGOLLogic:
             self._matrix[y][x] = None
             self._kinds_arrays[type(old_entity)].remove(old_entity)
             old_entity.alive = False
-
-        new_entity = kind()
-        new_entity._game_logic = self
-        new_entity.pos = pos
+        new_entity = kind.__new__(kind)
         self._matrix[y][x] = new_entity
         self._kinds_arrays[kind].append(new_entity)
+        new_entity.__init__(game_logic=self, pos=pos)
         new_entity.alive = True
 
     def swap(self, value1, value2):

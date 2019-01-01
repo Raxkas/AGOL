@@ -41,8 +41,8 @@ class Mob(Entity, metaclass=ABCMeta):
         if self._energy > self._energy_limit:
             self._energy = self._energy_limit
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.energy = self._default_energy
 
     def spawn(self, kind, pos):
