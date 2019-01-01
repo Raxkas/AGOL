@@ -58,8 +58,10 @@ class Mob(Entity, metaclass=ABCMeta):
                 value.energy = 0
         self._game_logic.replace(value, Air)
 
-    def can_multiply(self):
-        return self.energy >= self._default_energy + self._multiplication_cost
+    def _do_multiply_on(self, kind):
+        if kind is Air:
+            return self.energy >= self._default_energy + self._multiplication_cost
+        return False
 
     def multiply(self, pos):
         self.spawn(type(self), pos)

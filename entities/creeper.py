@@ -19,7 +19,7 @@ class Creeper(Attacker):
     _children_per_multiplication = 6
 
     def _next_tick(self):
-        if self.can_multiply():
+        if self._do_multiply_on(Air):
             self.bang()
             available_air = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
             air_to_spawn_on = sample(available_air, self._children_per_multiplication)

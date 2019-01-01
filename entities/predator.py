@@ -17,7 +17,7 @@ class Predator(Attacker):
     _energy_from_prey = 1
 
     def _next_tick(self):
-        if self.can_multiply() and self.is_near(Air):
+        if self._do_multiply_on(Air) and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 

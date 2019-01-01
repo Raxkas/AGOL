@@ -20,11 +20,11 @@ class Monorem(Attacker):
     _energy_from_prey = None
 
     def _next_tick(self):
-        if self.can_multiply() and self.is_near(Air):
+        if self._do_multiply_on(Air) and self.is_near(Air):
             cell = choice(self.find_near(Air)).pos
             self.multiply(cell)
 
-        elif self.can_multiply() and self.energy >= self._default_energy + self._multiplication_cost + 1 and self.is_near(Grass):  # TODO: energy checking is not clean
+        elif self._do_multiply_on(Grass) and self.is_near(Grass):
             cell = choice(self.find_near(Grass)).pos
             self.kill(cell)
             self.multiply(cell)
@@ -32,6 +32,11 @@ class Monorem(Attacker):
         elif self.is_near(Air, Grass):
             cell = choice(self.find_near(Air, Grass)).pos
             self.move(cell)
+
+    def _do_multiply_on(self, kind):
+        if kind is Grass:
+            return self.energy >= self._default_energy + self._multiplication_cost + 1
+        return super()._do_multiply_on(kind)
 
     @property
     def energy(self):
