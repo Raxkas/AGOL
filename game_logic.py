@@ -1,6 +1,7 @@
 from collections import namedtuple
 from itertools import accumulate
-from random import random
+from operator import mul
+from random import random, randrange
 
 
 _Size = namedtuple("Size", "x y")
@@ -33,8 +34,12 @@ class AGOLLogic:
                 return kind
 
     def next_tick(self):
-        entities = sum(self._kinds_arrays.values(), [])
-        for entity in entities:
+        width = self.size.x
+        area = mul(*self.size)
+        for _ in range(area):
+            i = randrange(area)
+            x, y = i % width, i // width
+            entity = self._matrix[y][x]
             if entity.is_alive:
                 entity.next_tick()
         self.tick_number += 1
