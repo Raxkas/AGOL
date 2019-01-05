@@ -16,11 +16,11 @@ class Attacker(Mob, metaclass=ABCMeta):
     def _energy_from_prey(self):
         pass
 
-    def move(self, pos):
+    def _move(self, pos):
         self._game_logic.swap(self, pos)
         self.energy -= self._movement_cost
 
-    def eat(self, pos):
-        self.kill(pos)
+    def _eat(self, pos):
+        self._kill(pos)
         self._game_logic.swap(self, pos)
         self.energy += self._energy_from_prey

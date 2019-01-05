@@ -13,15 +13,15 @@ class Entity(metaclass=ABCMeta):
         pass
 
     @property
-    def adjacent_entities(self):
+    def __adjacent_entities(self):
         entities = self._game_logic.get_entities_in_region(self.pos, 1)
         entities.remove(self)
         return entities
 
-    def is_near(self, *kinds_needed):
-        kinds_near = frozenset(map(type, self.adjacent_entities))
+    def _is_near(self, *kinds_needed):
+        kinds_near = frozenset(map(type, self.__adjacent_entities))
         return any(map(lambda kind: issubclass(kind, kinds_needed), kinds_near))
 
-    def find_near(self, *kinds):
-        found = filter(lambda entity: isinstance(entity, kinds), self.adjacent_entities)
+    def _find_near(self, *kinds):
+        found = filter(lambda entity: isinstance(entity, kinds), self.__adjacent_entities)
         return tuple(found)

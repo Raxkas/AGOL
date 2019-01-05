@@ -40,12 +40,12 @@ class Mob(Entity, metaclass=ABCMeta):
         super().__init__(*args, **kwargs)
         self.energy = self._default_energy
 
-    def spawn(self, kind, pos):
+    def _spawn(self, kind, pos):
         if not isinstance(self._game_logic.get_entity_by_pos(pos), Air):
             raise ValueError("Is not empty cell: %s" % pos)
         self._game_logic.replace(pos, kind)
 
-    def kill(self, value):
+    def _kill(self, value):
         if not isinstance(value, Entity):
             value = self._game_logic.get_entity_by_pos(value)
         if isinstance(value, Mob):
@@ -58,12 +58,12 @@ class Mob(Entity, metaclass=ABCMeta):
             return self.energy >= 2*self._default_energy
         return False
 
-    def multiply(self, pos):
-        self.spawn(type(self), pos)
+    def _multiply(self, pos):
+        self._spawn(type(self), pos)
         self.energy -= self._default_energy
 
     def next_tick(self):
         self.energy += self._energy_increment_per_tick
         self._next_tick()
         if self.is_alive and self.energy <= 0:
-            self.kill(self)
+            self._kill(self)

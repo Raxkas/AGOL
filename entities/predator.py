@@ -16,14 +16,14 @@ class Predator(Attacker):
     _energy_from_prey = 1
 
     def _next_tick(self):
-        if self._do_multiply_on(Air) and self.is_near(Air):
-            cell = choice(self.find_near(Air)).pos
-            self.multiply(cell)
+        if self._do_multiply_on(Air) and self._is_near(Air):
+            cell = choice(self._find_near(Air)).pos
+            self._multiply(cell)
 
-        elif self.is_near(Xotaker):
-            cell = choice(self.find_near(Xotaker)).pos
-            self.eat(cell)
+        elif self._is_near(Xotaker):
+            cell = choice(self._find_near(Xotaker)).pos
+            self._eat(cell)
 
-        elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass)).pos
-            self.move(cell)
+        elif self._is_near(Air, Grass):
+            cell = choice(self._find_near(Air, Grass)).pos
+            self._move(cell)

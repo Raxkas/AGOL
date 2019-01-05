@@ -24,20 +24,20 @@ class Creeper(Attacker):
             children_count = min(self._children_per_multiplication, len(available_air))
             air_to_spawn_on = sample(available_air, children_count)
             for air in air_to_spawn_on:
-                self.spawn(Creeper, air.pos)
+                self._spawn(Creeper, air.pos)
 
-        elif self.is_near(Monorem):
-            cell = choice(self.find_near(Monorem)).pos
-            self.eat(cell)
+        elif self._is_near(Monorem):
+            cell = choice(self._find_near(Monorem)).pos
+            self._eat(cell)
 
-        elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass)).pos
-            self.move(cell)
+        elif self._is_near(Air, Grass):
+            cell = choice(self._find_near(Air, Grass)).pos
+            self._move(cell)
 
     def bang(self):
         damaged_entities = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
         for entity in damaged_entities:
-            self.kill(entity)
+            self._kill(entity)
 
     def _do_multiply_on(self, kind):
         return self.energy >= self._default_energy * self._children_per_multiplication

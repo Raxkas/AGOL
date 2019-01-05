@@ -19,18 +19,18 @@ class Monorem(Attacker):
     _energy_from_prey = None
 
     def _next_tick(self):
-        if self._do_multiply_on(Air) and self.is_near(Air):
-            cell = choice(self.find_near(Air)).pos
-            self.multiply(cell)
+        if self._do_multiply_on(Air) and self._is_near(Air):
+            cell = choice(self._find_near(Air)).pos
+            self._multiply(cell)
 
-        elif self._do_multiply_on(Grass) and self.is_near(Grass):
-            cell = choice(self.find_near(Grass)).pos
-            self.kill(cell)
-            self.multiply(cell)
+        elif self._do_multiply_on(Grass) and self._is_near(Grass):
+            cell = choice(self._find_near(Grass)).pos
+            self._kill(cell)
+            self._multiply(cell)
 
-        elif self.is_near(Air, Grass):
-            cell = choice(self.find_near(Air, Grass)).pos
-            self.move(cell)
+        elif self._is_near(Air, Grass):
+            cell = choice(self._find_near(Air, Grass)).pos
+            self._move(cell)
 
     def _do_multiply_on(self, kind):
         if kind is Grass:
