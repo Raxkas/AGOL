@@ -13,10 +13,6 @@ class Entity(metaclass=ABCMeta):
         pass
 
     @property
-    def kind(self):
-        return type(self)
-
-    @property
     def adjacent_entities(self):
         entities = self._game_logic.get_entities_in_region(self.pos, 1)
         entities.remove(self)
