@@ -12,8 +12,7 @@ _monorems_joint_energy = 0
 class Monorem(Attacker):
     __slots__ = ()
 
-    _default_energy = 10
-    _multiplication_cost = 5
+    _default_energy = 5
     _energy_limit = 20
     _energy_increment_per_tick = 1
     _movement_cost = 0
@@ -35,7 +34,7 @@ class Monorem(Attacker):
 
     def _do_multiply_on(self, kind):
         if kind is Grass:
-            return self.energy >= self._default_energy + self._multiplication_cost + 1
+            return self.energy >= 2*self._default_energy + self._energy_increment_per_tick
         return super()._do_multiply_on(kind)
 
     @property

@@ -18,11 +18,6 @@ class Mob(Entity, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def _multiplication_cost(self):
-        pass
-
-    @property
-    @abstractmethod
     def _energy_limit(self):
         pass
 
@@ -60,12 +55,12 @@ class Mob(Entity, metaclass=ABCMeta):
 
     def _do_multiply_on(self, kind):
         if kind is Air:
-            return self.energy >= self._default_energy + self._multiplication_cost
+            return self.energy >= 2*self._default_energy
         return False
 
     def multiply(self, pos):
         self.spawn(type(self), pos)
-        self.energy -= self._multiplication_cost
+        self.energy -= self._default_energy
 
     def next_tick(self):
         self.energy += self._energy_increment_per_tick

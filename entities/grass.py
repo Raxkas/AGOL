@@ -7,8 +7,7 @@ from entities.mob import Mob
 class Grass(Mob):
     __slots__ = ()
 
-    _default_energy = 1
-    _multiplication_cost = 4
+    _default_energy = 4
     _energy_limit = 10
     _energy_increment_per_tick = 1
 

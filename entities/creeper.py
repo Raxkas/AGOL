@@ -9,11 +9,10 @@ from entities.monorem import Monorem
 class Creeper(Attacker):
     __slots__ = ()
 
-    _default_energy = 20
-    _multiplication_cost = 3
-    _energy_limit = 27
+    _default_energy = 0.5
+    _energy_limit = 4
     _energy_increment_per_tick = 0
-    _movement_cost = 0.1
+    _movement_cost = 0.015
     _energy_from_prey = 1
     _bang_radius = 5
     _children_per_multiplication = 6
@@ -39,3 +38,6 @@ class Creeper(Attacker):
         damaged_entities = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
         for entity in damaged_entities:
             self.kill(entity)
+
+    def _do_multiply_on(self, kind):
+        return self.energy >= self._default_energy * self._children_per_multiplication
