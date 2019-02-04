@@ -48,10 +48,11 @@ class Mob(Entity, metaclass=ABCMeta):
     def _kill(self, value):
         if not isinstance(value, Entity):
             value = self._game_logic.get_entity_by_pos(value)
-        if isinstance(value, Mob):
-            if value.energy > 0:
-                value.energy = 0
-        self._game_logic.replace(value, Air)
+        entity = value
+        if isinstance(entity, Mob):
+            if entity.energy > 0:
+                entity.energy = 0
+        self._game_logic.replace(entity.pos, Air)
 
     def _do_multiply_on(self, kind):
         if kind is Air:
