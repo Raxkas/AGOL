@@ -34,6 +34,7 @@ class AGOLLogic:
                 return kind
 
     def next_tick(self):
+        # random.shuffle is not something AGOL needed
         width = self.size.x
         area = mul(*self.size)
         for _ in range(area):
