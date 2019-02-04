@@ -35,5 +35,5 @@ class Xotaker(Attacker):
 
     def _do_multiply_on(self, kind):
         if kind is Grass:
-            return self.energy == self._energy_limit
+            return self.energy >= 2*self._default_energy
         return super()._do_multiply_on(kind)
