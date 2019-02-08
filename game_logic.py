@@ -74,13 +74,15 @@ class AGOLLogic:
 
     def get_entities_in_region(self, pos, radius):
         x, y = pos
+        x_min, x_max = x-radius, x+radius
+        y_min, y_max = y-radius, y+radius
         x_slice = slice(
-            max(x - radius, 0),
-            min(x + radius, self.size.x - 1) + 1
+            max(x_min, 0),
+            min(x_max+1, self.size.x)
         )
         y_slice = slice(
-            max(y - radius, 0),
-            min(y + radius, self.size.y - 1) + 1
+            max(y_min, 0),
+            min(y_max+1, self.size.y)
         )
         rows = self._matrix[y_slice]
         entities_rows = map(lambda row: row[x_slice], rows)
