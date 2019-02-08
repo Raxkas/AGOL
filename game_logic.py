@@ -67,7 +67,7 @@ class AGOLLogic(FieldBase):
         for axis_index, value in enumerate(pos):
             min_, max_ = value - radius, value + radius
             side = range(min_, max_+1)
-            side = filter(lambda v: 0 <= v < self.size[axis_index], side)
+            side = map(lambda v: v % self.size[axis_index], side)
             sides.append(side)
         positions_in_region = product(*sides)
         return list(map(self.__getitem__, positions_in_region))
