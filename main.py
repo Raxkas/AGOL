@@ -4,6 +4,7 @@ from operator import mul
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.slider import Slider
 
 from field_widget import FieldWidget
 from graph_widget import GraphWidget
@@ -35,18 +36,20 @@ class AGOLApp(App):
     LOGIC = None
     field_widget = None
     graph_widget = None
-    FPS = 6
+    speed_slider = None
+    app_ticks_per_second = 10
 
     def __init__(self):
         super().__init__()
         self.LOGIC = AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES)
-        Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.FPS)
+        Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.app_ticks_per_second)
 
     def next_tick(self):
         self.field_widget.update()
         self.graph_widget.update()
         area = mul(*self.LOGIC.size)
-        for _ in range(area):
+        logic_ticks_per_app_tick = int(self.game_speed * area)
+        for _ in range(logic_ticks_per_app_tick):
             self.LOGIC.next_tick()
 
     def on_pause(self):
@@ -55,10 +58,18 @@ class AGOLApp(App):
     def build(self):
         self.field_widget = FieldWidget(self.LOGIC, COLORS)
         self.graph_widget = GraphWidget(self.LOGIC, COLORS, scaling_function=lambda c: log2(1 + c))
-        root_widget = BoxLayout(spacing=16)
-        root_widget.add_widget(self.field_widget)
-        root_widget.add_widget(self.graph_widget)
+        self.speed_slider = Slider(min=0, max=1, value=0.5, size_hint=[1, 0.1])
+        root_widget = BoxLayout(orientation="vertical")
+        main_widget = BoxLayout(spacing=16, size_hint=[1, 0.9])
+        main_widget.add_widget(self.field_widget)
+        main_widget.add_widget(self.graph_widget)
+        root_widget.add_widget(self.speed_slider)
+        root_widget.add_widget(main_widget)
         return root_widget
+
+    @property
+    def game_speed(self):
+        return self.speed_slider.value
 
 
 if __name__ == "__main__":
