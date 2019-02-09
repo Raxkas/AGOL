@@ -30,15 +30,12 @@ class AGOLLogic(FieldBase):
                 return kind
 
     def next_tick(self):
-        # random.shuffle is not something AGOL needed
         width = self.size.x
         area = mul(*self.size)
-        for _ in range(area):
-            i = randrange(area)
-            x, y = i % width, i // width
-            entity = self[x, y]
-            if entity.is_alive:
-                entity.next_tick()
+        i = randrange(area)
+        x, y = i % width, i // width
+        entity = self[x, y]
+        entity.next_tick()
         self.tick_number += 1
 
     def get_entity_by_pos(self, pos):

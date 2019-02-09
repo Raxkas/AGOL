@@ -1,4 +1,5 @@
 from math import log2
+from operator import mul
 
 from kivy.app import App
 from kivy.clock import Clock
@@ -44,7 +45,9 @@ class AGOLApp(App):
     def next_tick(self):
         self.field_widget.update()
         self.graph_widget.update()
-        self.LOGIC.next_tick()
+        area = mul(*self.LOGIC.size)
+        for _ in range(area):
+            self.LOGIC.next_tick()
 
     def on_pause(self):
         return True
