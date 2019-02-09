@@ -6,10 +6,10 @@ from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.slider import Slider
 
-from field_widget import FieldWidget
-from graph_widget import GraphWidget
+from widgets.field_widget import FieldWidget
+from widgets.graph_widget import GraphWidget
 
-from game_logic import AGOLLogic
+from game_logic.agol_logic import AGOLLogic
 from entities.air import Air
 from entities.grass import Grass
 from entities.xotaker import Xotaker

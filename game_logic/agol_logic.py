@@ -2,7 +2,7 @@ from itertools import accumulate, product
 from operator import mul
 from random import random, randrange
 
-from field_base import FieldBase
+from game_logic.field_base import FieldBase
 
 
 # TODO: rename
