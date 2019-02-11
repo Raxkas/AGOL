@@ -1,0 +1,26 @@
+#: import log2 math.log2
+
+#: import COLORS main.COLORS
+#: import FieldWidget widgets.field_widget.FieldWidget
+#: import GraphWidget widgets.graph_widget.GraphWidget
+
+
+BoxLayout:
+    orientation: "vertical"
+    Slider:
+        id: speed_slider
+        size_hint: [1, 0.1]
+        min: 0
+        max: 1
+        value: 0.5
+    BoxLayout:
+        size_hint: [1, 0.9]
+        FieldWidget:
+            id: field_widget
+            agol_logic: app.LOGIC
+            colors: COLORS
+        GraphWidget:
+            id: graph_widget
+            agol_logic: app.LOGIC
+            colors: COLORS
+            scaling_function: lambda x: log2(1+x)

@@ -1,3 +1,4 @@
+from kivy.properties import ObjectProperty, DictProperty
 from kivy.uix.widget import Widget
 from kivy.graphics.texture import Texture
 from kivy.graphics import Rectangle
@@ -6,23 +7,27 @@ from entities.mob import Mob
 
 
 class FieldWidget(Widget):
+    agol_logic = ObjectProperty()
+    colors = DictProperty()
     _agol_texture = None
 
-    def __init__(self, agol_logic, colors, **kwargs):
-        self._agol_logic = agol_logic
-        self._colors = {key: tuple(int(k*255) for k in color)
-                        for key, color in colors.items()}
+    def on_colors(self, instance, new_colors):
+        transform_color_to_24bit_color = lambda color: tuple(int(k * 255) for k in color)
+        self._colors = {key: transform_color_to_24bit_color(color)
+                        for key, color in new_colors.items()}
+
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bind(size=lambda *args: self._update_canvas())
 
     def update(self):
-        size = self._agol_logic.size
+        size = self.agol_logic.size
         texture = Texture.create(size=size)
         texture.mag_filter = 'nearest'
         buf = [None] * (4 * size.x*size.y)
         for y in range(size.y):
             for x in range(size.x):
-                entity = self._agol_logic.get_entity_by_pos((x, y))
+                entity = self.agol_logic.get_entity_by_pos((x, y))
                 color = self._get_color_by_entity(entity)
                 i = x + y*size.x
                 start, end = 4*i, 4*(i+1)
@@ -37,12 +42,12 @@ class FieldWidget(Widget):
         if self._agol_texture is None:
             return;
         cell_side_px = min(
-            self.size[0] / self._agol_logic.size.x,
-            self.size[1] / self._agol_logic.size.y
+            self.size[0] / self.agol_logic.size.x,
+            self.size[1] / self.agol_logic.size.y
         )  # cell must have square shape
         cell_side_px = int(cell_side_px)
-        rect_size = (cell_side_px * self._agol_logic.size.x,
-                     cell_side_px * self._agol_logic.size.y)
+        rect_size = (cell_side_px * self.agol_logic.size.x,
+                     cell_side_px * self.agol_logic.size.y)
         with self.canvas:
             Rectangle(pos=self.pos, size=rect_size, texture=self._agol_texture)
 

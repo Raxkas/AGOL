@@ -1,13 +1,7 @@
-from math import log2
 from operator import mul
 
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.slider import Slider
-
-from widgets.field_widget import FieldWidget
-from widgets.graph_widget import GraphWidget
 
 from game_logic.agol_logic import AGOLLogic
 from entities.air import Air
@@ -45,8 +39,9 @@ class AGOLApp(App):
         Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.app_ticks_per_second)
 
     def next_tick(self):
-        self.field_widget.update()
-        self.graph_widget.update()
+        ids = self.root.ids
+        ids["field_widget"].update()
+        ids["graph_widget"].update()
         area = mul(*self.LOGIC.size)
         logic_ticks_per_app_tick = int(self.game_speed * area)
         for _ in range(logic_ticks_per_app_tick):
@@ -55,21 +50,10 @@ class AGOLApp(App):
     def on_pause(self):
         return True
 
-    def build(self):
-        self.field_widget = FieldWidget(self.LOGIC, COLORS)
-        self.graph_widget = GraphWidget(self.LOGIC, COLORS, scaling_function=lambda c: log2(1 + c))
-        self.speed_slider = Slider(min=0, max=1, value=0.5, size_hint=[1, 0.1])
-        root_widget = BoxLayout(orientation="vertical")
-        main_widget = BoxLayout(spacing=16, size_hint=[1, 0.9])
-        main_widget.add_widget(self.field_widget)
-        main_widget.add_widget(self.graph_widget)
-        root_widget.add_widget(self.speed_slider)
-        root_widget.add_widget(main_widget)
-        return root_widget
-
     @property
     def game_speed(self):
-        return self.speed_slider.value
+        ids = self.root.ids
+        return ids["speed_slider"].value
 
 
 if __name__ == "__main__":
