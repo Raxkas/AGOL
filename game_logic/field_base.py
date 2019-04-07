@@ -1,4 +1,5 @@
 from collections import namedtuple
+from operator import mul
 
 
 _Size = namedtuple("Size", "x y")
@@ -9,6 +10,10 @@ class FieldBase:
         self.size = _Size(width, height)
         self.__matrix = [[None] * self.size.x  # row
                          for y in range(self.size.y)]
+
+    @property
+    def area(self):
+        return mul(*self.size)
 
     def is_pos_correct(self, pos):
         x, y = pos

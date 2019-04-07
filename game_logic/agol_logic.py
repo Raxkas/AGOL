@@ -1,5 +1,4 @@
 from itertools import accumulate, product
-from operator import mul
 from random import random, randrange
 
 from game_logic.field_base import FieldBase
@@ -31,8 +30,7 @@ class AGOLLogic(FieldBase):
 
     def next_tick(self):
         width = self.size.x
-        area = mul(*self.size)
-        i = randrange(area)
+        i = randrange(self.area)
         x, y = i % width, i // width
         entity = self[x, y]
         entity.next_tick()

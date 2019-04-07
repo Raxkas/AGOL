@@ -1,5 +1,3 @@
-from operator import mul
-
 from kivy.app import App
 from kivy.clock import Clock
 
@@ -23,8 +21,7 @@ class AGOLApp(App):
         ids = self.root.ids
         ids["field_widget"].update()
         ids["graph_widget"].update()
-        area = mul(*self.logic.size)
-        logic_ticks_per_app_tick = int(self.game_speed * area)
+        logic_ticks_per_app_tick = int(self.game_speed * self.logic.area)
         for _ in range(logic_ticks_per_app_tick):
             self.logic.next_tick()
 
