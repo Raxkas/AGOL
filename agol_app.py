@@ -1,0 +1,37 @@
+from operator import mul
+
+from kivy.app import App
+from kivy.clock import Clock
+
+from game_logic.agol_logic import AGOLLogic
+
+
+class AGOLApp(App):
+    logic = None
+    app_ticks_per_second = None
+    field_widget = None
+    graph_widget = None
+    speed_slider = None
+
+    def __init__(self, width, height, kinds, spawn_chances, app_ticks_per_second):
+        super().__init__()
+        self.logic = AGOLLogic(width, height, kinds, spawn_chances)
+        self.app_ticks_per_second = app_ticks_per_second
+        Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.app_ticks_per_second)
+
+    def next_tick(self):
+        ids = self.root.ids
+        ids["field_widget"].update()
+        ids["graph_widget"].update()
+        area = mul(*self.logic.size)
+        logic_ticks_per_app_tick = int(self.game_speed * area)
+        for _ in range(logic_ticks_per_app_tick):
+            self.logic.next_tick()
+
+    def on_pause(self):
+        return True
+
+    @property
+    def game_speed(self):
+        ids = self.root.ids
+        return ids["speed_slider"].value
