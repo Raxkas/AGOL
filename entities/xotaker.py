@@ -16,22 +16,22 @@ class Xotaker(Attacker):
 
     def _next_tick(self):
         if self._do_multiply_on(Air) and self._is_near(Air):
-            cell = choice(self._find_near(Air)).pos
-            self._multiply(cell)
+            pos = choice(self._find_near(Air)).pos
+            self._multiply(pos)
 
         elif self._do_multiply_on(Grass) and self._is_near(Grass):
-            cell = choice(self._find_near(Grass)).pos
+            pos = choice(self._find_near(Grass)).pos
             old_pos = self.pos
-            self._eat(cell)
+            self._eat(pos)
             self._multiply(old_pos)
 
         elif self._is_near(Grass):
-            cell = choice(self._find_near(Grass)).pos
-            self._eat(cell)
+            pos = choice(self._find_near(Grass)).pos
+            self._eat(pos)
 
         elif self._is_near(Air):
-            cell = choice(self._find_near(Air)).pos
-            self._move(cell)
+            pos = choice(self._find_near(Air)).pos
+            self._move(pos)
 
     def _do_multiply_on(self, kind):
         if kind is Grass:

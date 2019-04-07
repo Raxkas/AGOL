@@ -27,12 +27,12 @@ class Creeper(Attacker):
                 self._spawn(Creeper, air.pos)
 
         elif self._is_near(Monorem):
-            cell = choice(self._find_near(Monorem)).pos
-            self._eat(cell)
+            pos = choice(self._find_near(Monorem)).pos
+            self._eat(pos)
 
         elif self._is_near(Air, Grass):
-            cell = choice(self._find_near(Air, Grass)).pos
-            self._move(cell)
+            pos = choice(self._find_near(Air, Grass)).pos
+            self._move(pos)
 
     def bang(self):
         damaged_entities = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
