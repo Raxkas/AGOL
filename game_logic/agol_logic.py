@@ -6,8 +6,8 @@ from game_logic.field_base import FieldBase
 
 # TODO: rename
 class AGOLLogic(FieldBase):
-    def __init__(self, width, height, kinds, spawn_chances):
-        super().__init__(width, height)
+    def __init__(self, field_size, kinds, spawn_chances):
+        super().__init__(field_size)
         self.kinds = tuple(kinds)
         self._kinds_arrays = {kind: list() for kind in self.kinds}
         self._generate_entities(spawn_chances)

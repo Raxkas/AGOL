@@ -6,8 +6,8 @@ _Size = namedtuple("Size", "x y")
 
 
 class FieldBase:
-    def __init__(self, width, height):
-        self.size = _Size(width, height)
+    def __init__(self, size):
+        self.size = _Size(*size)
         self.__matrix = [[None] * self.size.x  # row
                          for y in range(self.size.y)]
 
