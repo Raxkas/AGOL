@@ -20,9 +20,9 @@ COLORS = {
     "Creeper": (0, 0.25, 0.75),
     "Monorem": (1, 1, 1)
 }
-TICKS_PER_SECOND = 10
+APP_TICKS_PER_SECOND = 10
 
 
 if __name__ == "__main__":
-    agol_app = AGOLApp(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES, TICKS_PER_SECOND)
+    agol_app = AGOLApp(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES, APP_TICKS_PER_SECOND)
     agol_app.run()
