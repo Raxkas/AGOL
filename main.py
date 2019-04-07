@@ -27,7 +27,7 @@ COLORS = {
 
 
 class AGOLApp(App):
-    LOGIC = None
+    logic = None
     field_widget = None
     graph_widget = None
     speed_slider = None
@@ -35,17 +35,17 @@ class AGOLApp(App):
 
     def __init__(self):
         super().__init__()
-        self.LOGIC = AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES)
+        self.logic = AGOLLogic(WIDTH, HEIGHT, KINDS, SPAWN_CHANCES)
         Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.app_ticks_per_second)
 
     def next_tick(self):
         ids = self.root.ids
         ids["field_widget"].update()
         ids["graph_widget"].update()
-        area = mul(*self.LOGIC.size)
+        area = mul(*self.logic.size)
         logic_ticks_per_app_tick = int(self.game_speed * area)
         for _ in range(logic_ticks_per_app_tick):
-            self.LOGIC.next_tick()
+            self.logic.next_tick()
 
     def on_pause(self):
         return True
