@@ -1,10 +1,14 @@
 from bisect import bisect_left
 from collections import namedtuple
-from operator import mul
 
 from kivy.properties import BoundedNumericProperty, DictProperty, ObjectProperty
 from kivy.uix.widget import Widget
 from kivy.graphics import Color, Line
+
+
+# TODO: self._draw_history_frames(history_frames)
+# TODO: warning about slow Line.points increment
+# TODO: Graph -> Graphic
 
 
 class GraphWidget(Widget):
@@ -13,7 +17,7 @@ class GraphWidget(Widget):
     agol_logic = ObjectProperty()
     area_ticks_to_display = BoundedNumericProperty(defaultvalue=512, min=0)
     colors = DictProperty()
-    scaling_function = ObjectProperty(defaultvalue=lambda x: x)
+    get_height_by_kind_quantity = ObjectProperty(defaultvalue=lambda quantity: quantity)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -95,8 +99,10 @@ class GraphWidget(Widget):
         return self.pos[0] + x
 
     def _get_y_by_kind_count(self, count):
-        max_entity_count = mul(*self.agol_logic.size)
-        k = self.scaling_function(count) / self.scaling_function(max_entity_count)
+        height = self.get_height_by_kind_quantity(count)
+        max_entity_count = self.agol_logic.area
+        max_height = self.get_height_by_kind_quantity(max_entity_count)
+        k = height / max_height
         y = k * self.size[1]
         return self.pos[1] + y
 

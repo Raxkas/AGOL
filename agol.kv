@@ -23,4 +23,4 @@ BoxLayout:
             id: graph_widget
             agol_logic: app.logic
             colors: COLORS
-            scaling_function: lambda x: log2(1+x)
+            get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
