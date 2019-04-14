@@ -76,8 +76,8 @@ class GraphWidget(Widget):
     def _draw_history_frame(self, history_frame):
         tick_number = history_frame.tick_number
         x = self._get_x_by_tick_number(tick_number)
-        for kind, count in history_frame.population_info.items():
-            y = self._get_y_by_kind_count(count)
+        for kind, quantity in history_frame.population_info.items():
+            y = self._get_y_by_kind_quantity(quantity)
             self._graphs[kind].points += (x, y)
 
     def _make_history_frame(self):
@@ -98,8 +98,8 @@ class GraphWidget(Widget):
         x = k * self.size[0]
         return self.pos[0] + x
 
-    def _get_y_by_kind_count(self, count):
-        height = self.get_height_by_kind_quantity(count)
+    def _get_y_by_kind_quantity(self, quantity):
+        height = self.get_height_by_kind_quantity(quantity)
         max_entity_count = self.agol_logic.area
         max_height = self.get_height_by_kind_quantity(max_entity_count)
         k = height / max_height
