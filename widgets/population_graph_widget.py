@@ -7,11 +7,11 @@ from kivy.graphics import Color, Line
 
 
 # TODO: self._draw_history_frames(history_frames)
-# TODO: warning about slow Line.points increment
-# TODO: Graph -> Graphic
+# TODO: slow Line.points increment
+# TODO: decomposition
 
 
-class GraphWidget(Widget):
+class PopulationGraphWidget(Widget):
     _HistoryFrame = namedtuple("HistoryFrame", "tick_number population_info")
 
     agol_logic = ObjectProperty()

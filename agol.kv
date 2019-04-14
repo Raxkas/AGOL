@@ -2,7 +2,7 @@
 
 #: import COLORS main.COLORS
 #: import FieldWidget widgets.field_widget.FieldWidget
-#: import GraphWidget widgets.graph_widget.GraphWidget
+#: import PopulationGraphWidget widgets.population_graph_widget.PopulationGraphWidget
 
 
 BoxLayout:
@@ -19,8 +19,8 @@ BoxLayout:
             id: field_widget
             agol_logic: app.logic
             colors: COLORS
-        GraphWidget:
-            id: graph_widget
+        PopulationGraphWidget:
+            id: population_graph_widget
             agol_logic: app.logic
             colors: COLORS
             get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
