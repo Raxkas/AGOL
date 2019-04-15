@@ -7,9 +7,6 @@ from game_logic.agol_logic import AGOLLogic
 class AGOLApp(App):
     logic = None
     app_ticks_per_second = None
-    field_widget = None
-    graph_widget = None
-    speed_slider = None
 
     def __init__(self, field_size, kinds, spawn_chances, app_ticks_per_second):
         super().__init__()
