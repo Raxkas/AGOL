@@ -12,7 +12,7 @@ from kivy.graphics import Color, Line
 
 
 class PopulationGraphWidget(Widget):
-    _HistoryFrame = namedtuple("HistoryFrame", "tick_number population_info")
+    _HistoryFrame = namedtuple("HistoryFrame", "ticks_since_start population_info")
 
     agol_logic = ObjectProperty()
     area_ticks_to_display = BoundedNumericProperty(defaultvalue=512, min=0)
@@ -53,9 +53,9 @@ class PopulationGraphWidget(Widget):
             self._draw_history_frame(history_frame)
 
     def _get_range_of_visible_history_indexes(self):
-        current_tick_number = self._history[-1].tick_number
+        current_ticks_since_start = self._history[-1].ticks_since_start
         ticks_to_display = self.agol_logic.area * self.area_ticks_to_display
-        first_tick_to_display = current_tick_number - current_tick_number % ticks_to_display
+        first_tick_to_display = current_ticks_since_start - current_ticks_since_start % ticks_to_display
         start_index = bisect_left(self.__ticks_history, first_tick_to_display)
         stop_index = len(self._history)
         return range(start_index, stop_index)
@@ -70,20 +70,20 @@ class PopulationGraphWidget(Widget):
 
     def _add_history_frame(self, history_frame):
         self._history.append(history_frame)
-        self.__ticks_history.append(history_frame.tick_number)
+        self.__ticks_history.append(history_frame.ticks_since_start)
         self._draw_history_frame(history_frame)
 
     def _draw_history_frame(self, history_frame):
-        tick_number = history_frame.tick_number
-        x = self._get_x_by_tick_number(tick_number)
+        ticks_since_start = history_frame.ticks_since_start
+        x = self._get_x_by_ticks_since_start(ticks_since_start)
         for kind, quantity in history_frame.population_info.items():
             y = self._get_y_by_kind_quantity(quantity)
             self._graphs[kind].points += (x, y)
 
     def _make_history_frame(self):
-        tick_number = self.agol_logic.tick_number
+        ticks_since_start = self.agol_logic.ticks_since_start
         population_info = self._get_population_info()
-        return self._HistoryFrame(tick_number=tick_number, population_info=population_info)
+        return self._HistoryFrame(ticks_since_start=ticks_since_start, population_info=population_info)
 
     def _get_population_info(self):
         keys = tuple(self.agol_logic.kinds)
@@ -91,8 +91,8 @@ class PopulationGraphWidget(Widget):
         result = zip(keys, values)
         return dict(result)
 
-    def _get_x_by_tick_number(self, tick_number):
-        area_ticks = tick_number / self.agol_logic.area
+    def _get_x_by_ticks_since_start(self, ticks_since_start):
+        area_ticks = ticks_since_start / self.agol_logic.area
         area_ticks_since_last_erasing = area_ticks % self.area_ticks_to_display
         k = area_ticks_since_last_erasing / self.area_ticks_to_display
         x = k * self.size[0]

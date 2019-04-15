@@ -11,7 +11,7 @@ class AGOLLogic(FieldBase):
         self.kinds = tuple(kinds)
         self._kinds_arrays = {kind: list() for kind in self.kinds}
         self._generate_entities(spawn_chances)
-        self.tick_number = 0
+        self.ticks_since_start = 0
 
     def _generate_entities(self, spawn_chances):
         for y in range(self.size.y):
@@ -34,7 +34,7 @@ class AGOLLogic(FieldBase):
         x, y = i % width, i // width
         entity = self[x, y]
         entity.next_tick()
-        self.tick_number += 1
+        self.ticks_since_start += 1
 
     def get_entity_by_pos(self, pos):
         return self[pos]
