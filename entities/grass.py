@@ -8,7 +8,7 @@ class Grass(Mob):
     __slots__ = ()
 
     _default_energy = 4
-    _energy_limit = 10
+    energy_limit = 10
     _energy_increment_per_tick = 1
 
     def _next_tick(self):

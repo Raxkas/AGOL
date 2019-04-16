@@ -9,7 +9,7 @@ class Monorem(Attacker):
     __slots__ = ()
 
     _default_energy = 15
-    _energy_limit = 40
+    energy_limit = 40
     _energy_increment_per_tick = 1
     _movement_cost = 0
     _energy_from_prey = None

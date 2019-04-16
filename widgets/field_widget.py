@@ -65,5 +65,5 @@ class FieldWidget(Widget):
         max_opacity = 1
         if not isinstance(entity, Mob):
             return max_opacity
-        k = entity.energy / entity._energy_limit
+        k = entity.energy / entity.energy_limit
         return min_opacity + k*(max_opacity-min_opacity)

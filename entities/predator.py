@@ -10,7 +10,7 @@ class Predator(Attacker):
     __slots__ = ()
 
     _default_energy = 3
-    _energy_limit = 20
+    energy_limit = 20
     _energy_increment_per_tick = 0
     _movement_cost = 0.05
     _energy_from_prey = 1

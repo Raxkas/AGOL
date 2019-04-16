@@ -18,7 +18,7 @@ class Mob(Entity, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def _energy_limit(self):
+    def energy_limit(self):
         pass
 
     @property
@@ -33,8 +33,8 @@ class Mob(Entity, metaclass=ABCMeta):
     @energy.setter
     def energy(self, value):
         self._energy = value
-        if self._energy > self._energy_limit:
-            self._energy = self._energy_limit
+        if self._energy > self.energy_limit:
+            self._energy = self.energy_limit
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
