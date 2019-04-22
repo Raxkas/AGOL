@@ -41,13 +41,13 @@ class Mob(Entity, metaclass=ABCMeta):
         self.energy = self._default_energy
 
     def _spawn(self, kind, pos):
-        if not isinstance(self._game_logic.get_entity_by_pos(pos), Air):
+        if not isinstance(self._game_logic[pos], Air):
             raise ValueError("Is not empty cell: %s" % pos)
         self._game_logic.replace(pos, kind)
 
     def _kill(self, value):
         if not isinstance(value, Entity):
-            value = self._game_logic.get_entity_by_pos(value)
+            value = self._game_logic[value]
         entity = value
         if isinstance(entity, Mob):
             if entity.energy > 0:

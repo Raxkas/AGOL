@@ -36,12 +36,9 @@ class AGOLLogic(FieldBase):
         entity.next_tick()
         self.ticks_since_start += 1
 
-    def get_entity_by_pos(self, pos):
-        return self[pos]
-
     def replace(self, pos, kind):
         x, y = pos
-        old_entity = self.get_entity_by_pos(pos)
+        old_entity = self[pos]
         if old_entity is not None:
             self[x, y] = None
             self._kinds_arrays[type(old_entity)].remove(old_entity)
@@ -53,7 +50,7 @@ class AGOLLogic(FieldBase):
         new_entity.is_alive = True
 
     def swap(self, pos1, pos2):
-        entity1, entity2 = map(self.get_entity_by_pos, [pos1, pos2])
+        entity1, entity2 = self[pos1], self[pos2]
         entity1.pos, entity2.pos = pos2, pos1
         super().swap(pos1, pos2)
 

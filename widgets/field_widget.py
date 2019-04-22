@@ -27,7 +27,7 @@ class FieldWidget(Widget):
         buf = [None] * (4 * size.x*size.y)
         for y in range(size.y):
             for x in range(size.x):
-                entity = self.agol_logic.get_entity_by_pos((x, y))
+                entity = self.agol_logic[x, y]
                 color = self._get_color_by_entity(entity)
                 i = x + y*size.x
                 start, end = 4*i, 4*(i+1)
