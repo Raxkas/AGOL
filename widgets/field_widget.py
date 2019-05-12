@@ -7,9 +7,9 @@ from entities.mob import Mob
 
 
 class FieldWidget(Widget):
-    agol_logic = ObjectProperty()
+    field = ObjectProperty()
     colors = DictProperty()
-    _agol_texture = None
+    _field_texture = None
 
     def on_colors(self, instance, new_colors):
         transform_color_to_24bit_color = lambda color: tuple(int(k * 255) for k in color)
@@ -21,35 +21,35 @@ class FieldWidget(Widget):
         self.bind(size=lambda *args: self._update_canvas())
 
     def update(self):
-        size = self.agol_logic.size
+        size = self.field.size
         texture = Texture.create(size=size)
         texture.mag_filter = 'nearest'
         buf = [None] * (4 * size.x*size.y)
         for y in range(size.y):
             for x in range(size.x):
-                entity = self.agol_logic[x, y]
+                entity = self.field[x, y]
                 color = self._get_color_by_entity(entity)
                 i = x + y*size.x
                 start, end = 4*i, 4*(i+1)
                 buf[start:end] = color
         buf = bytes(buf)
         texture.blit_buffer(buf, colorfmt='rgba')
-        self._agol_texture = texture
+        self._field_texture = texture
         self._update_canvas()
 
     def _update_canvas(self):
         self.canvas.clear()
-        if self._agol_texture is None:
+        if self._field_texture is None:
             return;
         cell_side_px = min(
-            self.size[0] / self.agol_logic.size.x,
-            self.size[1] / self.agol_logic.size.y
+            self.size[0] / self.field.size.x,
+            self.size[1] / self.field.size.y
         )  # cell must have square shape
         cell_side_px = int(cell_side_px)
-        rect_size = (cell_side_px * self.agol_logic.size.x,
-                     cell_side_px * self.agol_logic.size.y)
+        rect_size = (cell_side_px * self.field.size.x,
+                     cell_side_px * self.field.size.y)
         with self.canvas:
-            Rectangle(pos=self.pos, size=rect_size, texture=self._agol_texture)
+            Rectangle(pos=self.pos, size=rect_size, texture=self._field_texture)
 
     def _get_color_by_entity(self, entity):
         kind_name = type(entity).__name__

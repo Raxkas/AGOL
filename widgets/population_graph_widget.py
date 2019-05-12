@@ -54,7 +54,7 @@ class PopulationGraphWidget(Widget):
 
     def _get_range_of_visible_history_indexes(self):
         current_ticks_since_start = self._history[-1].ticks_since_start
-        ticks_to_display = self.agol_logic.area * self.area_ticks_to_display
+        ticks_to_display = self.agol_logic.field.area * self.area_ticks_to_display
         first_tick_to_display = current_ticks_since_start - current_ticks_since_start % ticks_to_display
         start_index = bisect_left(self.__ticks_history, first_tick_to_display)
         stop_index = len(self._history)
@@ -92,7 +92,7 @@ class PopulationGraphWidget(Widget):
         return dict(result)
 
     def _get_x_by_ticks_since_start(self, ticks_since_start):
-        area_ticks = ticks_since_start / self.agol_logic.area
+        area_ticks = ticks_since_start / self.agol_logic.field.area
         area_ticks_since_last_erasing = area_ticks % self.area_ticks_to_display
         k = area_ticks_since_last_erasing / self.area_ticks_to_display
         x = k * self.size[0]
@@ -100,7 +100,7 @@ class PopulationGraphWidget(Widget):
 
     def _get_y_by_kind_quantity(self, quantity):
         height = self.get_height_by_kind_quantity(quantity)
-        max_entity_count = self.agol_logic.area
+        max_entity_count = self.agol_logic.field.area
         max_height = self.get_height_by_kind_quantity(max_entity_count)
         k = height / max_height
         y = k * self.size[1]

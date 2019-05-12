@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from entities.entity import Entity
+from game_logic.entity import Entity
 from entities.air import Air
 
 
@@ -40,19 +40,33 @@ class Mob(Entity, metaclass=ABCMeta):
         super().__init__(*args, **kwargs)
         self.energy = self._default_energy
 
+    @property
+    def __adjacent_entities(self):
+        entities = self.field.get_entities_in_area(self.pos, 1)
+        entities.remove(self)
+        return entities
+
+    def _is_near(self, *kinds_needed):
+        kinds_near = frozenset(map(type, self.__adjacent_entities))
+        return any(map(lambda kind: issubclass(kind, kinds_needed), kinds_near))
+
+    def _find_near(self, *kinds):
+        found = filter(lambda entity: isinstance(entity, kinds), self.__adjacent_entities)
+        return tuple(found)
+
     def _spawn(self, kind, pos):
-        if not isinstance(self._game_logic[pos], Air):
+        if not isinstance(self.field[pos], Air):
             raise ValueError("Is not empty cell: %s" % pos)
-        self._game_logic.replace(pos, kind)
+        self.field.replace(pos, kind)
 
     def _kill(self, value):
         if not isinstance(value, Entity):
-            value = self._game_logic[value]
+            value = self.field[value]
         entity = value
         if isinstance(entity, Mob):
             if entity.energy > 0:
                 entity.energy = 0
-        self._game_logic.replace(entity.pos, Air)
+        self.field.replace(entity.pos, Air)
 
     def _do_multiply_on(self, kind):
         if kind is Air:
@@ -66,5 +80,5 @@ class Mob(Entity, metaclass=ABCMeta):
     def next_tick(self):
         self.energy += self._energy_increment_per_tick
         self._next_tick()
-        if self.is_alive and self.energy <= 0:
+        if self.energy <= 0:
             self._kill(self)

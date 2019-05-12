@@ -18,7 +18,7 @@ class AGOLApp(App):
         ids = self.root.ids
         ids["field_widget"].update()
         ids["population_graph_widget"].update()
-        logic_ticks_per_app_tick = int(self.game_speed * self.logic.area)
+        logic_ticks_per_app_tick = int(self.game_speed * self.logic.count_entities())
         for _ in range(logic_ticks_per_app_tick):
             self.logic.next_tick()
 

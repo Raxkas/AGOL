@@ -20,7 +20,7 @@ class Creeper(Attacker):
     def _next_tick(self):
         if self._do_multiply_on(Air):
             self.bang()
-            available_air = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
+            available_air = self.field.get_entities_in_area(self.pos, self._bang_radius)
             children_count = min(self._children_per_multiplication, len(available_air))
             air_to_spawn_on = sample(available_air, children_count)
             for air in air_to_spawn_on:
@@ -35,7 +35,7 @@ class Creeper(Attacker):
             self._move(pos)
 
     def bang(self):
-        damaged_entities = self._game_logic.get_entities_in_region(self.pos, self._bang_radius)
+        damaged_entities = self.field.get_entities_in_area(self.pos, self._bang_radius)
         for entity in damaged_entities:
             self._kill(entity)
 
