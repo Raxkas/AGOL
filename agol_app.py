@@ -16,8 +16,8 @@ class AGOLApp(App):
 
     def next_tick(self):
         ids = self.root.ids
-        ids["field_widget"].update()
-        ids["population_graph_widget"].update()
+        ids.field_widget.update()
+        ids.population_graph_widget.update()
         logic_ticks_per_app_tick = int(self.game_speed * self.logic.count_entities())
         for _ in range(logic_ticks_per_app_tick):
             self.logic.next_tick()
@@ -28,4 +28,4 @@ class AGOLApp(App):
     @property
     def game_speed(self):
         ids = self.root.ids
-        return ids["speed_slider"].value
+        return ids.speed_slider.value
