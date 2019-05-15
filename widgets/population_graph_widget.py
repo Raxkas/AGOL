@@ -38,35 +38,35 @@ class PopulationGraphWidget(Widget):
         for graph in self._graphs.values():
             graph.points = ()
 
+    # TODO: observer?
     def update(self):
         if not hasattr(self, "_graphs"):
             self._init_graphs()
         previous_history_frame = self._history[-1] if self._history else None
         new_history_frame = self._make_history_frame()
         self._add_history_frame(new_history_frame)
-        if not self._is_history_frame_visible(previous_history_frame):
-            self._reload_canvas()
+        if previous_history_frame is not None:
+            if not self._is_history_frame_visible(previous_history_frame):
+                self._reload_canvas()
 
     def _reload_canvas(self):
         self._clear_graphs()
         for history_frame in self._get_visible_history_piece():
             self._draw_history_frame(history_frame)
 
-    def _get_range_of_visible_history_indexes(self):
+    def _get_oldest_visible_tick(self):
         current_ticks_since_start = self._history[-1].ticks_since_start
         ticks_to_display = self.agol_logic.field.area * self.area_ticks_to_display
-        first_tick_to_display = current_ticks_since_start - current_ticks_since_start % ticks_to_display
-        start_index = bisect_left(self.__ticks_history, first_tick_to_display)
-        stop_index = len(self._history)
-        return range(start_index, stop_index)
+        now_ticks_displayed = current_ticks_since_start % ticks_to_display
+        return current_ticks_since_start - now_ticks_displayed
 
     def _is_history_frame_visible(self, history_frame):
-        return history_frame in self._get_range_of_visible_history_indexes()
+        return history_frame.ticks_since_start >= self._get_oldest_visible_tick()
 
     def _get_visible_history_piece(self):
-        visible_range = self._get_range_of_visible_history_indexes()
-        slice_for_visible_history = slice(visible_range.start, visible_range.stop)
-        return self._history[slice_for_visible_history]
+        oldest_visible_tick = self._get_oldest_visible_tick()
+        start_index = bisect_left(self.__ticks_history, oldest_visible_tick)
+        return self._history[start_index:]
 
     def _add_history_frame(self, history_frame):
         self._history.append(history_frame)
