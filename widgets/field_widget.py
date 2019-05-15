@@ -3,8 +3,6 @@ from kivy.uix.widget import Widget
 from kivy.graphics.texture import Texture
 from kivy.graphics import Rectangle
 
-from entities.mob import Mob
-
 
 class FieldWidget(Widget):
     field = ObjectProperty()
@@ -63,7 +61,8 @@ class FieldWidget(Widget):
     def _compute_opacity(entity):
         min_opacity = 0.25
         max_opacity = 1
-        if not isinstance(entity, Mob):
-            return max_opacity
-        k = entity.energy / entity.energy_limit
+        try:
+            k = entity.energy / entity.energy_limit
+        except AttributeError:
+            k = 1
         return min_opacity + k*(max_opacity-min_opacity)
