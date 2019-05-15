@@ -5,22 +5,24 @@
 
 
 BoxLayout:
-    orientation: "vertical"
+    padding: 16
+    spacing: 16
     Slider:
         id: speed_slider
-        size_hint: [1, 0.1]
+        size_hint: [0.1, 1]
+        orientation: "vertical"
         min: 0
         max: 1
         value: 0.5
-    BoxLayout:
-        size_hint: [1, 0.9]
-        FieldWidget:
-            id: field_widget
-            field: app.agol_kernel.field
-            colors: app.kinds_colors
-        PopulationGraphWidget:
-            id: population_graph_widget
-            agol_kernel: app.agol_kernel
-            colors: app.kinds_colors
-            get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
-            area_ticks_to_display: 512
+    FieldWidget:
+        id: field_widget
+        size_hint: [0.5, 1]
+        field: app.agol_kernel.field
+        colors: app.kinds_colors
+    PopulationGraphWidget:
+        id: population_graph_widget
+        size_hint: [0.4, 1]
+        agol_kernel: app.agol_kernel
+        colors: app.kinds_colors
+        get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
+        area_ticks_to_display: 256
