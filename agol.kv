@@ -1,6 +1,5 @@
 #: import log2 math.log2
 
-#: import COLORS main.COLORS
 #: import FieldWidget widgets.field_widget.FieldWidget
 #: import PopulationGraphWidget widgets.population_graph_widget.PopulationGraphWidget
 
@@ -18,10 +17,10 @@ BoxLayout:
         FieldWidget:
             id: field_widget
             field: app.agol_kernel.field
-            colors: COLORS
+            colors: app.kinds_colors
         PopulationGraphWidget:
             id: population_graph_widget
             agol_kernel: app.agol_kernel
-            colors: COLORS
+            colors: app.kinds_colors
             get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
             area_ticks_to_display: 512

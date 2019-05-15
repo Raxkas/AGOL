@@ -8,9 +8,10 @@ class AGOLApp(App):
     agol_kernel = None
     app_ticks_per_second = None
 
-    def __init__(self, field_size, kinds, spawn_chances, app_ticks_per_second):
+    def __init__(self, *, field_size, kinds, kinds_colors, spawn_chances, app_ticks_per_second):
         super().__init__()
         self.agol_kernel = AGOLKernel(field_size, kinds, spawn_chances)
+        self.kinds_colors = kinds_colors.copy()
         self.app_ticks_per_second = app_ticks_per_second
         Clock.schedule_interval(lambda dt: self.next_tick(), 1/self.app_ticks_per_second)
 

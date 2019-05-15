@@ -23,5 +23,11 @@ APP_TICKS_PER_SECOND = 10
 
 
 if __name__ == "__main__":
-    agol_app = AGOLApp(FIELD_SIZE, KINDS, SPAWN_CHANCES, APP_TICKS_PER_SECOND)
+    agol_app = AGOLApp(
+        field_size=FIELD_SIZE,
+        kinds=KINDS,
+        kinds_colors=COLORS,
+        spawn_chances=SPAWN_CHANCES,
+        app_ticks_per_second=APP_TICKS_PER_SECOND
+    )
     agol_app.run()
