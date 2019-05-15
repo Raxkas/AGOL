@@ -7,7 +7,7 @@ from kivy.graphics import Color, Line
 
 
 # TODO: self._draw_history_frames(history_frames)
-# TODO: slow Line.points increment
+# TODO: slow Line.points increment?
 # TODO: decomposition
 
 
@@ -15,7 +15,7 @@ class PopulationGraphWidget(Widget):
     _HistoryFrame = namedtuple("HistoryFrame", "ticks_since_start population_info")
 
     agol_logic = ObjectProperty()
-    area_ticks_to_display = BoundedNumericProperty(defaultvalue=512, min=0)
+    area_ticks_to_display = BoundedNumericProperty(defaultvalue=1, min=0)
     colors = DictProperty()
     get_height_by_kind_quantity = ObjectProperty(defaultvalue=lambda quantity: quantity)
 
