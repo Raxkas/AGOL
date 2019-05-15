@@ -29,4 +29,4 @@ class AGOLApp(App):
     @property
     def game_speed(self):
         ids = self.root.ids
-        return ids.speed_slider.value
+        return ids.speed_slider.value ** 2
