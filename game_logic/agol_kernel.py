@@ -3,15 +3,14 @@ from random import choice
 from game_logic.field import Field
 
 
-# TODO: rename
-class AGOLLogic:
+class AGOLKernel:
 
     def __init__(self, field_size, kinds, spawn_chances):
         self.kinds = tuple(kinds)
         self._entities = []
         self._kinds_arrays = {kind: list() for kind in self.kinds}  # TODO: rename
         self.ticks_since_start = 0
-        self.field = Field(size=field_size, agol_logic=self, spawn_chances=spawn_chances)
+        self.field = Field(size=field_size, agol_kernel=self, spawn_chances=spawn_chances)
 
     def next_tick(self):
         entity = choice(self._entities)

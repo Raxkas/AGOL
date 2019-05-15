@@ -10,8 +10,8 @@ class Field:
     _Size = namedtuple("Size", "x y")
 
     # TODO: custom neighbors rule
-    def __init__(self, *, agol_logic, size, spawn_chances):
-        self._agol_logic = agol_logic  # TODO: remove knowledge about kernel?
+    def __init__(self, *, agol_kernel, size, spawn_chances):
+        self._agol_kernel = agol_kernel  # TODO: remove knowledge about kernel?
         self.size = self._Size(*size)
         self.__matrix = Matrix(size=self.size)  # TODO: NullEntity?
         self._generate_entities(spawn_chances=spawn_chances)
@@ -31,7 +31,7 @@ class Field:
         self._set_entity(pos=pos_2, entity=entity_1)
 
     def replace(self, pos, kind):
-        self._agol_logic.remove_entity(self[pos])
+        self._agol_kernel.remove_entity(self[pos])
         self._spawn_entity(kind, pos)
 
     # TODO: replace with get_entity?
@@ -44,7 +44,7 @@ class Field:
         entity.pos = pos
 
     def _spawn_entity(self, kind, pos):
-        entity = kind(agol_kernel=self._agol_logic, field=self)
+        entity = kind(agol_kernel=self._agol_kernel, field=self)
         self._set_entity(pos=pos, entity=entity)
 
     def get_entities_in_area(self, pos, radius):
@@ -61,7 +61,7 @@ class Field:
     def _generate_entities(self, spawn_chances):
         for y in range(self.size.y):
             for x in range(self.size.x):
-                kind = self._choice_random_kind(self._agol_logic.kinds, spawn_chances)
+                kind = self._choice_random_kind(self._agol_kernel.kinds, spawn_chances)
                 self._spawn_entity(kind, (x, y))
 
     @staticmethod

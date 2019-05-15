@@ -17,11 +17,11 @@ BoxLayout:
         size_hint: [1, 0.9]
         FieldWidget:
             id: field_widget
-            field: app.logic.field
+            field: app.agol_kernel.field
             colors: COLORS
         PopulationGraphWidget:
             id: population_graph_widget
-            agol_logic: app.logic
+            agol_kernel: app.agol_kernel
             colors: COLORS
             get_height_by_kind_quantity: lambda quantity: log2(1 + quantity)
             area_ticks_to_display: 512
