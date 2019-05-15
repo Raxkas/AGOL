@@ -54,8 +54,9 @@ class Field:
             side = range(min_, max_+1)
             side = tuple(map(lambda v: v % self.size[axis_index], side))
             sides.append(side)
-        positions_in_region = product(*sides)
-        return list(map(self.__getitem__, positions_in_region))
+        positions_in_area = product(*sides)
+        entities_in_area = list(map(self.__getitem__, positions_in_area))
+        return entities_in_area
 
     # TODO: move out
     def _generate_entities(self, spawn_chances):
