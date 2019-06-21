@@ -19,8 +19,7 @@ COLORS = {
     "Creeper": (0, 0.25, 0.75),
     "Monorem": (1, 1, 1)
 }
-APP_TICKS_PER_SECOND = 10
-
+APP_TICKS_PER_SECOND = float("inf")
 
 if __name__ == "__main__":
     agol_app = AGOLApp(
