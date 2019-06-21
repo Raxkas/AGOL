@@ -46,8 +46,12 @@ class FieldWidget(Widget):
         cell_side_px = int(cell_side_px)
         rect_size = (cell_side_px * self.field.size.x,
                      cell_side_px * self.field.size.y)
+
+        rect_pos = (self.center[0] - rect_size[0]//2,
+                    self.center[1] - rect_size[1]//2)
+
         with self.canvas:
-            Rectangle(pos=self.pos, size=rect_size, texture=self._field_texture)
+            Rectangle(pos=rect_pos, size=rect_size, texture=self._field_texture)
 
     def _get_color_by_entity(self, entity):
         kind_name = type(entity).__name__
