@@ -29,7 +29,7 @@ class PopulationGraphWidget(Widget):
     def _init_graphs(self):
         self._graphs = {}
         for kind in self.agol_kernel.kinds:
-            color = self._get_color_by_kind(kind)
+            color = self.colors[kind]
             with self.canvas:
                 Color(*color)
                 self._graphs[kind] = Line(points=(), width=1)
@@ -105,7 +105,3 @@ class PopulationGraphWidget(Widget):
         k = height / max_height
         y = k * self.size[1]
         return self.pos[1] + y
-
-    def _get_color_by_kind(self, kind):
-        kind_name = kind.__name__
-        return self.colors[kind_name]

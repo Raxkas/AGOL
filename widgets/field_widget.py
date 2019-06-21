@@ -54,8 +54,7 @@ class FieldWidget(Widget):
             Rectangle(pos=rect_pos, size=rect_size, texture=self._field_texture)
 
     def _get_color_by_entity(self, entity):
-        kind_name = type(entity).__name__
-        color = self._colors[kind_name]
+        color = self._colors[type(entity)]
         if len(color) == 3:
             opacity = int(self._compute_opacity(entity)*255)
             color += (opacity,)

@@ -12,12 +12,12 @@ KINDS = [Air, Grass, Xotaker, Predator, Creeper, Monorem]
 SPAWN_CHANCES = [128, 1, 1, 1, 1, 1]
 FIELD_SIZE = (64, 64)
 COLORS = {
-    "Air": (1, 1, 1, 0),
-    "Grass": (0, 0.5, 0),
-    "Xotaker": (1, 1, 0),
-    "Predator": (1, 0, 0),
-    "Creeper": (0, 0.25, 0.75),
-    "Monorem": (1, 1, 1)
+    Air: (1, 1, 1, 0),
+    Grass: (0, 0.5, 0),
+    Xotaker: (1, 1, 0),
+    Predator: (1, 0, 0),
+    Creeper: (0, 0.25, 0.75),
+    Monorem: (1, 1, 1)
 }
 
 if __name__ == "__main__":
