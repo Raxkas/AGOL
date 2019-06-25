@@ -10,9 +10,9 @@ class AGOLApp(App):
         super().__init__()
         self.agol_kernel = AGOLKernel(field_size, kinds, spawn_chances)
         self.kinds_colors = kinds_colors.copy()
-        Clock.schedule_interval(lambda dt: self.next_tick(), 0)
+        Clock.schedule_interval(self.next_tick, 0)
 
-    def next_tick(self):
+    def next_tick(self, dt):
         ids = self.root.ids
         ids.field_widget.update()
         ids.population_graph_widget.update()
