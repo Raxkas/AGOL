@@ -44,11 +44,11 @@ class FieldWidget(Widget):
             self.size[0] / self.field.size.x,
             self.size[1] / self.field.size.y
         )  # cell must have square shape
-        cell_side_px = int(cell_side_px)
+        cell_side_px = int(cell_side_px)  # if it is fractional, then the cells will have different sizes
         rect_size = (cell_side_px * self.field.size.x,
                      cell_side_px * self.field.size.y)
-        rect_pos = (self.center[0] - rect_size[0]//2,
-                    self.center[1] - rect_size[1]//2)
+        rect_pos = (int(self.center[0] - rect_size[0]/2),
+                    int(self.center[1] - rect_size[1]/2))  # if rect_pos is fractional, then artifacts will appear
 
         with self.canvas:
             Rectangle(pos=rect_pos, size=rect_size, texture=self._field_texture)
