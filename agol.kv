@@ -2,18 +2,20 @@
 
 #: import FieldWidget widgets.field_widget.FieldWidget
 #: import PopulationGraphWidget widgets.population_graph_widget.PopulationGraphWidget
+#: import SpeedController widgets.speed_controller.SpeedController
 
 
 BoxLayout:
     padding: 16
     spacing: 16
-    Slider:
-        id: speed_slider
+    SpeedController:
+        id: speed_controller
         size_hint: [0.1, 1]
         orientation: "vertical"
+        get_current_time: app.get_usage_time
         min: 0
-        max: 1
-        value: 0.5
+        max: 9
+        value: 4.5
     FieldWidget:
         id: field_widget
         size_hint: [0.5, 1]
