@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.clock import Clock
 
-from app_usage_time_counter import AppUsageTimeCounter
+from app.app_usage_time_counter import AppUsageTimeCounter
 from game_logic.agol_kernel import AGOLKernel
 
 

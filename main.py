@@ -1,4 +1,4 @@
-from agol_app import AGOLApp
+from app.agol_app import AGOLApp
 
 from entities.air import Air
 from entities.grass import Grass
