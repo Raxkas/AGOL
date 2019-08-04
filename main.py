@@ -13,7 +13,7 @@ SPAWN_CHANCES = [128, 1, 1, 1, 1, 1]
 FIELD_SIZE = (64, 64)
 COLORS = {
     Air: (1, 1, 1, 0),
-    Grass: (0, 0.5, 0),
+    Grass: (0, 1/2, 0),
     Xotaker: (1, 1, 0),
     Predator: (1, 0, 0),
     Creeper: (0, 1/3, 1),
