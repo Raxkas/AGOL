@@ -16,7 +16,7 @@ COLORS = {
     Grass: (0, 0.5, 0),
     Xotaker: (1, 1, 0),
     Predator: (1, 0, 0),
-    Creeper: (0, 0.25, 0.75),
+    Creeper: (0, 1/3, 1),
     Monorem: (1, 1, 1)
 }
 
