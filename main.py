@@ -20,7 +20,8 @@ COLORS = {
     Monorem: (1, 1, 1)
 }
 
-if __name__ == "__main__":
+
+def main():
     agol_app = AGOLApp(
         field_size=FIELD_SIZE,
         kinds=KINDS,
@@ -28,3 +29,7 @@ if __name__ == "__main__":
         spawn_chances=SPAWN_CHANCES
     )
     agol_app.run()
+
+
+if __name__ == "__main__":
+    main()
