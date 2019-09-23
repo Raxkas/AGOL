@@ -40,15 +40,20 @@ class FieldWidget(Widget):
         if self._field_texture is None:
             return;
 
+        # cell must have square shape
         cell_side_px = min(
             self.size[0] / self.field.size.x,
             self.size[1] / self.field.size.y
-        )  # cell must have square shape
-        cell_side_px = int(cell_side_px)  # if it is fractional, then the cells will have different sizes
+        )
+        # if cell_side_px is fractional,
+        # then the cells will have different sizes
+        cell_side_px = int(cell_side_px)
         rect_size = (cell_side_px * self.field.size.x,
                      cell_side_px * self.field.size.y)
-        rect_pos = (int(self.center[0] - rect_size[0]/2),
-                    int(self.center[1] - rect_size[1]/2))  # if rect_pos is fractional, then artifacts will appear
+        rect_pos = (self.center[0] - rect_size[0]/2,
+                    self.center[1] - rect_size[1]/2)
+        # if rect_pos is fractional, then artifacts will appear
+        rect_pos = (int(rect_pos[0]), int(rect_pos[1]))
 
         with self.canvas:
             Rectangle(pos=rect_pos, size=rect_size, texture=self._field_texture)
