@@ -10,6 +10,7 @@ class FieldWidget(Widget):
     _field_texture = None
 
     def on_colors(self, instance, new_colors):
+        assert instance is self
         transform_color_to_24bit_color = lambda color: tuple(int(k * 255) for k in color)
         self._colors = {key: transform_color_to_24bit_color(color)
                         for key, color in new_colors.items()}
