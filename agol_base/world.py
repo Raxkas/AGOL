@@ -42,12 +42,3 @@ class World(metaclass=ABCMeta):
     @abstractmethod
     def set_cell_content(self, cell, new_content):
         pass
-
-    @abstractmethod
-    def dump_to_json(self):
-        pass
-
-    @classmethod
-    @abstractmethod
-    def load_from_json(cls, json_string):
-        pass
