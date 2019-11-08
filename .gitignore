@@ -1,5 +1,6 @@
 /.idea/
-/bin/
 /__pycache__/
+/bin/
+/venv/
 
 *.pyc
