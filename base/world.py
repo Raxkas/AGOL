@@ -7,13 +7,6 @@ class World(metaclass=ABCMeta):
     Any world is graph. Vertices are cells, edges are cell joints.
     """
 
-    @classmethod
-    def create(cls, *, generate_cells_content, **kwargs):
-        new_world = cls(**kwargs)
-        cells_content = generate_cells_content(new_world)
-        new_world._set_cells_content(cells_content)
-        return new_world
-
     def _set_cells_content(self, cells_content):
         for cell, content in zip(self.cells, cells_content):
             self.set_cell_content(cell, content)
