@@ -56,7 +56,7 @@ class PopulationGraphWidget(Widget):
 
     def _get_oldest_visible_tick(self):
         current_ticks_since_start = self._history[-1].ticks_since_start
-        ticks_to_display = self.agol_kernel.field.area * self.area_ticks_to_display
+        ticks_to_display = self.agol_kernel.field.cells_quantity * self.area_ticks_to_display
         now_ticks_displayed = current_ticks_since_start % ticks_to_display
         return current_ticks_since_start - now_ticks_displayed
 
@@ -92,7 +92,7 @@ class PopulationGraphWidget(Widget):
         return dict(result)
 
     def _get_x_by_ticks_since_start(self, ticks_since_start):
-        area_ticks = ticks_since_start / self.agol_kernel.field.area
+        area_ticks = ticks_since_start / self.agol_kernel.field.cells_quantity
         area_ticks_since_last_erasing = area_ticks % self.area_ticks_to_display
         k = area_ticks_since_last_erasing / self.area_ticks_to_display
         x = k * self.size[0]
@@ -100,7 +100,7 @@ class PopulationGraphWidget(Widget):
 
     def _get_y_by_kind_quantity(self, quantity):
         height = self.get_height_by_kind_quantity(quantity)
-        max_entity_count = self.agol_kernel.field.area
+        max_entity_count = self.agol_kernel.field.cells_quantity
         max_height = self.get_height_by_kind_quantity(max_entity_count)
         k = height / max_height
         y = k * self.size[1]
