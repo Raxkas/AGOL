@@ -43,6 +43,8 @@ class World(metaclass=ABCMeta):
         pass
 
     def _set_cells_content(self, cells_content):
+        if len(cells_content) != len(self.cells):
+            raise ValueError("argument length must be equal cells amount")
         for cell, content in zip(self.cells, cells_content):
             self.set_cell_content(cell, content)
 
