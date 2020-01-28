@@ -12,3 +12,12 @@ class Tickable(metaclass=ABCMeta):
     @abstractmethod
     def next_tick(self, cell, random) -> Iterable[Action]:
         pass
+
+    def __setattr__(self, name, value):
+        if self._world.is_mutable:
+            super().__setattr__(name, value)
+        else:
+            raise AttributeError(
+                "can't change cell content state when "
+                "world is immutable"
+            )
