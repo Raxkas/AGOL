@@ -21,10 +21,6 @@ class World(metaclass=ABCMeta):
             raise AssertionError("already mutable")
         self.is_mutable = True
 
-    def _set_cells_content(self, cells_content):
-        for cell, content in zip(self.cells, cells_content):
-            self.set_cell_content(cell, content)
-
     @property
     @abstractmethod
     def cells(self):
@@ -45,6 +41,10 @@ class World(metaclass=ABCMeta):
     @abstractmethod
     def set_cell_content(self, cell, new_content):
         pass
+
+    def _set_cells_content(self, cells_content):
+        for cell, content in zip(self.cells, cells_content):
+            self.set_cell_content(cell, content)
 
 
 class MakeMutable:
