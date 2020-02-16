@@ -55,5 +55,6 @@ class Field(World):
         return self._cells_content[y][x]
 
     def set_cell_content(self, cell, new_content):
+        super().set_cell_content(cell, new_content)
         x, y = cell
         self._cells_content[y][x] = new_content

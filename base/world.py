@@ -7,7 +7,8 @@ class World(metaclass=ABCMeta):
     Any world is graph. Vertices are cells, edges are cell joints.
     """
 
-    def __init__(self):
+    def __init__(self, process_setting_cell_content):
+        self.__process_setting_cell_content = process_setting_cell_content
         self.is_mutable = None
         self.make_immutable()
 
@@ -40,7 +41,7 @@ class World(metaclass=ABCMeta):
 
     @abstractmethod
     def set_cell_content(self, cell, new_content):
-        pass
+        self.__process_setting_cell_content(cell, new_content)
 
     def _set_cells_content(self, new_cells_content):
         if len(new_cells_content) != len(self.cells):

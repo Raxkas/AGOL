@@ -8,6 +8,7 @@ class Tickable(metaclass=ABCMeta):
 
     def __init__(self, *, world):
         self._world = world
+        self.cell = None
 
     @abstractmethod
     def next_tick(self, cell, random) -> Iterable[Action]:

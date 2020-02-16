@@ -13,7 +13,10 @@ class AGOLSimulation(Simulation):
 
     def __init__(self, *, world_type, world_params, seed,
                  do_generate_entities=False, spawn_chances_by_kinds=None):
-        self._world = world_type(**world_params)
+        self._world = world_type(
+            **world_params,
+            process_setting_cell_content=self.__process_setting_cell_content
+        )
         random_for_seeds = Random(seed)
         self._random_for_entity_choosing = Random(random_for_seeds.random())
         self._random_for_entities = Random(random_for_seeds.random())
@@ -29,6 +32,10 @@ class AGOLSimulation(Simulation):
                     self._world,
                     spawn_chances_by_kinds, random_for_generation
                 )
+
+    @staticmethod
+    def __process_setting_cell_content(cell, new_content):
+        new_content.cell = cell
 
     @classmethod
     def initial_next_tick(cls, input_data: _InputData) -> \
