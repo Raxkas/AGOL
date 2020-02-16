@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+from base.cell_content import CellContent
+
 
 class World(metaclass=ABCMeta):
     """Superclass of any type of world.
@@ -7,8 +9,7 @@ class World(metaclass=ABCMeta):
     Any world is graph. Vertices are cells, edges are cell joints.
     """
 
-    def __init__(self, process_setting_cell_content):
-        self.__process_setting_cell_content = process_setting_cell_content
+    def __init__(self):
         self.is_mutable = None
         self.make_immutable()
 
@@ -41,7 +42,10 @@ class World(metaclass=ABCMeta):
 
     @abstractmethod
     def set_cell_content(self, cell, new_content):
-        self.__process_setting_cell_content(cell, new_content)
+        old_content = self.get_cell_content(cell)
+        if isinstance(old_content, CellContent) and old_content.cell == cell:
+            old_content.cell = None
+        new_content.cell = cell
 
     def _set_cells_content(self, new_cells_content):
         if len(new_cells_content) != len(self.cells):
