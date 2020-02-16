@@ -10,8 +10,8 @@ class Field(World):
 
     _Size = namedtuple("Size", "x y")
 
-    def __init__(self, *, size):
-        super().__init__()
+    def __init__(self, *, size, **kwargs):
+        super().__init__(**kwargs)
         size = tuple(size)
         if len(size) != 2:
             raise IndexError("Field size consists of 2 elements")
