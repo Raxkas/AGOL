@@ -10,7 +10,7 @@ class Tickable(metaclass=ABCMeta):
         self.cell = None
 
     @abstractmethod
-    def next_tick(self, cell, random) -> Action:
+    def next_tick(self, random) -> Action:
         pass
 
     def __setattr__(self, name, value):
