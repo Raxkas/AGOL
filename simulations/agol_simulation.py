@@ -43,7 +43,7 @@ class AGOLSimulation(Simulation):
         world = self._world
         cell = self._random_for_entity_choosing.choice(world.cells)
         entity = world.get_cell_content(cell)
-        actions = entity.next_tick(world, cell, self._random_for_entities)
+        actions = entity.next_tick(cell, self._random_for_entities)
         for action in actions:
             with MakeMutable(world):
                 action.apply()
