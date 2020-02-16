@@ -11,9 +11,9 @@ _OutputData = Dict[str, Any]
 
 class AGOLSimulation(Simulation):
 
-    def __init__(self, *, world, seed,
+    def __init__(self, *, world_type, world_params, seed,
                  do_generate_entities=False, spawn_chances_by_kinds=None):
-        self._world = world  # TODO: mutable object may be bad here
+        self._world = world_type(**world_params)
         random_for_seeds = Random(seed)
         self._random_for_entity_choosing = Random(random_for_seeds.random())
         self._random_for_entities = Random(random_for_seeds.random())
