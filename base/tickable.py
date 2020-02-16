@@ -14,7 +14,7 @@ class Tickable(metaclass=ABCMeta):
         pass
 
     def __setattr__(self, name, value):
-        if self._world.is_mutable:
+        if name == "_world" or self._world.is_mutable:
             super().__setattr__(name, value)
         else:
             raise AttributeError(
