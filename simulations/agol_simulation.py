@@ -56,5 +56,5 @@ class AGOLSimulation(Simulation):
         kinds, spawn_chances = zip(*spawn_chances_by_kinds.items())
         for cell in world.cells:
             if world.get_cell_content(cell) is None:
-                entity = random.choices(kinds, spawn_chances)[0]()
+                entity = random.choices(kinds, spawn_chances)[0](world=world)
                 world.set_cell_content(cell, entity)
