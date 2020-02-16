@@ -2,6 +2,7 @@ from random import Random
 from typing import Any, Dict, Tuple
 
 from base.simulation import Simulation
+from base.world import MakeMutable
 
 
 _InputData = Dict[str, Any]
@@ -23,8 +24,11 @@ class AGOLSimulation(Simulation):
                                 "if do_generate_entities is not True")
         if do_generate_entities:
             random_for_generation = Random(random_for_seeds.random())
-            self._generate_entities(self._world, spawn_chances_by_kinds,
-                                    random_for_generation)
+            with MakeMutable(self._world):
+                self._generate_entities(
+                    self._world,
+                    spawn_chances_by_kinds, random_for_generation
+                )
 
     @classmethod
     def initial_next_tick(cls, input_data: _InputData) -> \
@@ -41,7 +45,8 @@ class AGOLSimulation(Simulation):
         entity = world.get_cell_content(cell)
         actions = entity.next_tick(world, cell, self._random_for_entities)
         for action in actions:
-            action.apply()
+            with MakeMutable(world):
+                action.apply()
         # TODO: should not be able to change world returned in output
         # TODO: maybe should return only changes
         return {"world": world}
