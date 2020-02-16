@@ -50,10 +50,9 @@ class AGOLSimulation(Simulation):
         world = self._world
         cell = self._random_for_entity_choosing.choice(world.cells)
         entity = world.get_cell_content(cell)
-        actions = entity.next_tick(cell, self._random_for_entities)
-        for action in actions:
-            with MakeMutable(world):
-                action.apply()
+        action = entity.next_tick(cell, self._random_for_entities)
+        with MakeMutable(world):
+            action.apply()
         # TODO: should not be able to change world returned in output
         # TODO: maybe should return only changes
         return {"world": world}

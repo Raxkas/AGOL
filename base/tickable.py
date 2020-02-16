@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Iterable
 
 from base.action import Action
 
@@ -11,7 +10,7 @@ class Tickable(metaclass=ABCMeta):
         self.cell = None
 
     @abstractmethod
-    def next_tick(self, cell, random) -> Iterable[Action]:
+    def next_tick(self, cell, random) -> Action:
         pass
 
     def __setattr__(self, name, value):
